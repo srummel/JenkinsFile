@@ -6,7 +6,7 @@ public class Build {
     }
 
 
-    public void hello() {
+    public static void hello() {
         println "Hello!"
     }
 }

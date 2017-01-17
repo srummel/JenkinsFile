@@ -21,6 +21,7 @@ import java.net.URL
      stage("\u2776 Build Stage") { 
           echo "\u2600 BUILD_URL=${env.BUILD_URL}"
 		  mytools.hello()
+         echo "AFTER HELLO"
         }
       }
 	} // try end
