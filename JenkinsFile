@@ -19,8 +19,9 @@ import java.net.URL
       node { 
      stage("\u2776 Build Stage") { 
           echo "\u2600 BUILD_URL=${env.BUILD_URL}"
-/**
+
 def build = load("Build.groovy")
+/**
 def message = build.hello()
 echo "1. Groovy Message=${message}"
 echo "2. Groovy Message="message

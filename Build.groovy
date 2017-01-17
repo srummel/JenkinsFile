@@ -1,6 +1,9 @@
 public class Build {
  
-   public static void hello() {
-        println "Hello!"
+   public static String hello() {
+		String message = "Hello!"
+        println message
+		return message
     }
+}
 }
