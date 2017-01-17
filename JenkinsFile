@@ -1,51 +1,5 @@
 #!/usr/bin/env groovy
 
-/**
- * ReqA Class description
- */
-
-/**
- * Sample Jenkinsfile for Jenkins2 Pipeline
- * from https://github.com/hotwilson/jenkins2/edit/master/Jenkinsfile
- * by wilsonmar@gmail.com 
- */
- 
-import hudson.model.*
-import hudson.EnvVars
-import java.net.URL
- 
-
-    try {
-      node { 
-     stage("Build Stage") { 
-          echo "BUILD_URL=${env.BUILD_URL}"
-checkout scm 
-
-buildStage()
-
-/**
-echo "1. Groovy Message=${message}"
-echo "2. Groovy Message="message
- */
-         echo "AFTER buildStage"
-        }
-      }
-	} // try end
-	catch (Exception exc) {
-	        echo "In Exception"
-println(exc.toString());
-	} finally {
-		echo "FINALLY!!"	  
-	}
-	
-@NonCPS
-def buildStage(){
-
-          echo "IN BUILD STAGE"
-
-def build = load("Build.groovy")
-def message = build.hello()
-
-          echo "OUTPUT MESSAGE = ${message}"
-
-}
+node {
+    load 'Build.groovy'
+}()
