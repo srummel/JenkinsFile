@@ -18,20 +18,16 @@ import java.net.URL
     try {
       node { 
      stage("Build Stage") { 
-          echo "\u2600 BUILD_URL=${env.BUILD_URL}"
-
-//step ([$class: 'CopyArtifact', projectName: 'Pipeline', filter: '**.groovy', selector: [$class: 'SpecificBuildSelector', buildNumber: env.BUILD_NUMBER]])
-
+          echo "BUILD_URL=${env.BUILD_URL}"
 checkout scm 
-def build = load("Build.groovy")
-def message = build.hello()
 
+buildStage()
 
 /**
 echo "1. Groovy Message=${message}"
 echo "2. Groovy Message="message
  */
-         echo "AFTER HELLO"
+         echo "AFTER buildStage"
         }
       }
 	} // try end
@@ -41,3 +37,15 @@ println(exc.toString());
 	} finally {
 		echo "FINALLY!!"	  
 	}
+	
+@NonCPS
+def buildStage(){
+
+          echo "IN BUILD STAGE"
+
+def build = load("Build.groovy")
+def message = build.hello()
+
+          echo "OUTPUT MESSAGE = ${message}"
+
+}
