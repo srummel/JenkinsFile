@@ -20,7 +20,9 @@ import java.net.URL
      stage("Build Stage") { 
           echo "\u2600 BUILD_URL=${env.BUILD_URL}"
 
+//step ([$class: 'CopyArtifact', projectName: 'Pipeline', filter: '**.groovy', selector: [$class: 'SpecificBuildSelector', buildNumber: env.BUILD_NUMBER]])
 
+checkout scm 
 def build = load("Build.groovy")
 /**
 def message = build.hello()
