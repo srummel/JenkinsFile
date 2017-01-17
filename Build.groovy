@@ -1,8 +1,8 @@
-public class Build {
- 
-   public static String hello() {
-		String message = "Hello!"
-        println message
-		return message
-    }
+{ ->
+  node('special-agent') {
+    hello("world")
+  }
+}
+def hello(whom) {
+  echo "hello ${whom}"
 }
