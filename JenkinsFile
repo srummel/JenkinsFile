@@ -14,10 +14,10 @@ import hudson.model.*
 import hudson.EnvVars
 import java.net.URL
  
-	mytools = load 'Tools.groovy'
 
     try {
       node { 
+	mytools = load 'Tools.groovy'
      stage("\u2776 Build Stage") { 
           echo "\u2600 BUILD_URL=${env.BUILD_URL}"
 		  mytools.hello()
