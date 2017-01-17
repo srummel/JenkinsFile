@@ -32,7 +32,8 @@ echo "2. Groovy Message="message
       }
 	} // try end
 	catch (exception) {
-
+	        echo "In Exception"
+println("Catching the exception");
 	} finally {
 		echo "FINALLY!!"	  
 	}
