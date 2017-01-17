@@ -32,5 +32,5 @@ echo "2. Groovy Message="message
 	catch (exception) {
 
 	} finally {
-		echo "FINALLY!!123"	  
+		echo "FINALLY!!"	  
 	}
