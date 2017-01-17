@@ -17,10 +17,10 @@ import java.net.URL
 
     try {
       node { 
-	mytools = load 'Tools.groovy'
+	build = load 'Build.groovy'
      stage("\u2776 Build Stage") { 
           echo "\u2600 BUILD_URL=${env.BUILD_URL}"
-		  mytools.hello()
+		  build.hello()
          echo "AFTER HELLO"
         }
       }
