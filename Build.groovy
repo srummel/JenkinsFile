@@ -6,4 +6,3 @@ public class Build {
 		return message
     }
 }
-}
