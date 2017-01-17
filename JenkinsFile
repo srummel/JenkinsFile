@@ -33,7 +33,7 @@ echo "2. Groovy Message="message
 	} // try end
 	catch (Exception exc) {
 	        echo "In Exception"
-println(ex.toString());
+println(exc.toString());
 	} finally {
 		echo "FINALLY!!"	  
 	}
