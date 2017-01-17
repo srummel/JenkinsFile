@@ -17,7 +17,7 @@ import java.net.URL
 
     try {
       node { 
-     stage("\u2776 Build Stage") { 
+     stage("Build Stage") { 
           echo "\u2600 BUILD_URL=${env.BUILD_URL}"
 
 
@@ -31,7 +31,7 @@ echo "2. Groovy Message="message
         }
       }
 	} // try end
-	catch (exception) {
+	catch (all) {
 	        echo "In Exception"
 println("Catching the exception");
 	} finally {
