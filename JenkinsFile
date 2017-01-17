@@ -1,69 +1,39 @@
-node {
-    try {
-        stage('Build') {
-            echo 'Build'
-        }
-        stage('Unit Testing') {
-            echo 'Unit Testing'
-        }
-	
-        stage('Code Coverage') {
-            echo 'Code Coverage'
-        }
+#!/usr/bin/env groovy
 
-        stage('Code Analysis') {
-            echo 'Code Analysis'
-        }
+/**
+ * ReqA Class description
+ */
 
-        stage('Creating install package') {
-            echo 'Creating install package'
-        }
+/**
+ * Sample Jenkinsfile for Jenkins2 Pipeline
+ * from https://github.com/hotwilson/jenkins2/edit/master/Jenkinsfile
+ * by wilsonmar@gmail.com 
+ */
+ 
+import hudson.model.*
+import hudson.EnvVars
+import groovy.json.JsonSlurperClassic
+import groovy.json.JsonBuilder
+import groovy.json.JsonOutput
+import java.net.URL
+ 
+	try {
+	  node {
+		stage '\u2776 Stage 1'
+		  echo "\u2600 BUILD_URL=${env.BUILD_URL}"
+	 
+		  def workspace = pwd()
+		  echo "\u2600 workspace=${workspace}"
+	 
+		stage '\u2777 Stage 2'
+	  } // node
+	} // try end
+	catch (exc) {
 
-        stage('Artifact Upload') {
-            echo 'Artifact Upload'
-        }
-
-        stage('Deployment to DEV environment') {
-            echo 'Deployment to DEV environment'
-        }
-
-        stage('Automated Acceptance testing') {
-            echo 'Automated Acceptance testing'
-        }
-
-        stage('Combine Logs') {
-            echo 'Combine Logs'
-        }
-
-        stage('Build Summary') {
-            echo 'Build Summary'
-        }
-
-        stage('Clean up workspace') {
-            echo 'Clean up workspace'
-        }
-
-        stage('Prepare code') {
-            echo 'Prepare code'
-        }
-
-        stage('Testing') {
-            echo 'Testing'
-            echo 'Testing - publish coverage results'
-        }
-
-        stage('Staging') {
-            echo 'Deploy Stage'
-        }
-        stage('Deploy') {
-            echo 'Deploy - Backend'
-            echo 'Deploy - Frontend'
-        }
-		
-  } catch (e) {
-    // If there was an exception thrown, the build failed
-    currentBuild.result = "FAILED"
-    throw e
-  } finally {
-  }
-}
+	} finally {
+	  
+	  // Must re-throw exception to propagate error:
+	  if (err) {
+		throw err
+	  }
+	}
