@@ -16,7 +16,7 @@ import java.net.URL
  
 	try {
       node { 
-        stage("Build Stage") { 
+     stage("\u2776 Build Stage") { 
           echo "\u2600 BUILD_URL=${env.BUILD_URL}"
         }
       }
