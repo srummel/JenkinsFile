@@ -16,8 +16,9 @@ import java.net.URL
  
 	try {
       node { 
-        stage "ABC"  { 
-         }
+        stage("Build") { 
+          echo "\u2600 BUILD_URL=${env.BUILD_URL}"
+        }
       }
 	} // try end
 	catch (exception) {
