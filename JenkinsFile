@@ -24,8 +24,10 @@ import java.net.URL
 
 checkout scm 
 def build = load("Build.groovy")
-/**
 def message = build.hello()
+
+
+/**
 echo "1. Groovy Message=${message}"
 echo "2. Groovy Message="message
  */
