@@ -31,9 +31,5 @@ import java.net.URL
 	catch (exc) {
 
 	} finally {
-	  
-	  // Must re-throw exception to propagate error:
-	  if (err) {
-		throw err
-	  }
+		echo "FINALLY!!"	  
 	}
