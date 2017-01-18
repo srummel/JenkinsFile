@@ -4,6 +4,6 @@
 def utils
 
 node {
-  utils = fileLoader.load('lib/java.groovy');
+  utils = fileLoader.load('org/foo/Utilities.groovy');
 echo "File has loaded"
   }
