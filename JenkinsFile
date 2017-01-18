@@ -1,4 +1,7 @@
-node {
+
+
+  node {
+  checkout scm
     // Load file from the current directory:
     def externalMethod = load("externalMethod.groovy")
     externalMethod.lookAtThis("Steve")
