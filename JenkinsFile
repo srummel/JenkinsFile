@@ -1,6 +1,6 @@
 @Library('Utilities@master')
 import com.Utilities
-import com.externalCall
+
 
 
 node {
