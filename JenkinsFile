@@ -1,5 +1,5 @@
 @Library('Utilities@master')
-import com.externalMethod
+import com.Utilities
 import com.externalCall
 
 
@@ -7,18 +7,6 @@ node {
   checkout scm
 
 echo "Step 1" 
-  // Load the file 'externalMethod.groovy' from the current directory, into a variable called "externalMethod".
-//    def externalMethod = load("src/com/externalMethod.groovy")
-
-echo "Step 2" 
     // Call the method we defined in externalMethod.
-    externalMethod.lookAtThis("Steve")
-
-echo "Step 3" 
-    // Now load 'externalCall.groovy'.
-//    def externalCall = load("src/com/externalCall.groovy")
-
-echo "Step 4" 
-    // We can just run it with "externalCall(...)" since it has a call method.
-//    externalCall("Steve")
+    Utilities.lookAtThis("Steve")
 }
