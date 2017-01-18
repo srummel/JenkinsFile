@@ -14,7 +14,7 @@ echo "Node 2"
   @NonCPS
   def testGroovy(){
 
-  utils = fileLoader.load("org/foo/Utilities.groovy");
+  utils = load("org/foo/Utilities.groovy");
 	
 echo "File has loaded"
   }
