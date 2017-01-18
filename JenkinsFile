@@ -1,6 +1,6 @@
+@Library('Utilities')
 
 node {
-@Library("Utilities")
 
   checkout scm
 
