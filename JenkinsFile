@@ -4,6 +4,8 @@
 def utils
 
 node {
+  checkout scm
+ 
   utils = fileLoader.load('org/foo/Utilities.groovy');
 echo "File has loaded"
   }
