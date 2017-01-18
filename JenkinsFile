@@ -8,6 +8,6 @@ node {
 
 echo "Step 1" 
     // Call the method we defined in externalMethod.
-    Utilities.lookAtThis("Steve")
+    Utilities.hello("Steve")
 echo "Step 2" 
 }
