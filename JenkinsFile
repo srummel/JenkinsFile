@@ -1,6 +1,9 @@
-import org.foo.Utilities
+// import org.foo.Utilities
+// def utils = new Utilities(steps)
 
-def utils = new Utilities(steps)
+def utils
+
 node {
-  utils.mvn 'clean package'
-}
+  utils = fileLoader.load('lib/java.groovy');
+echo "File has loaded"
+  }
