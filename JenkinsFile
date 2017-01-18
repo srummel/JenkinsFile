@@ -1,20 +1,19 @@
-
-
-  node {
+node {
   checkout scm
-    // Load file from the current directory:
+
 echo "Step 1" 
- def externalMethod = load("externalMethod.groovy")
+  // Load the file 'externalMethod.groovy' from the current directory, into a variable called "externalMethod".
+    def externalMethod = load("externalMethod.groovy")
 
 echo "Step 2" 
- externalMethod.lookAtThis("Steve")
+    // Call the method we defined in externalMethod.
+    externalMethod.lookAtThis("Steve")
 
- 
- 
 echo "Step 3" 
- def externalCall = load("externalCall.groovy")
+    // Now load 'externalCall.groovy'.
+    def externalCall = load("externalCall.groovy")
 
 echo "Step 4" 
- externalCall("Steve")
+    // We can just run it with "externalCall(...)" since it has a call method.
+    externalCall("Steve")
 }
-   
