@@ -6,7 +6,7 @@ def utils
 node {
 echo "Node 1"
   checkout scm
- 
+  testGroovy()
 echo "Node 2"
   }
   
