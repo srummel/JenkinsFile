@@ -4,8 +4,17 @@
 def utils
 
 node {
+echo "Node 1"
   checkout scm
  
+echo "Node 2"
+  }
+  
+  
+  @NonCPS
+  def testGroovy(){
+
   utils = fileLoader.load('org/foo/Utilities.groovy');
+	
 echo "File has loaded"
   }
