@@ -1,20 +1,9 @@
-// import org.foo.Utilities
-// def utils = new Utilities(steps)
-
-def utils
-
 node {
-echo "Node 1"
-  checkout scm
-  testGroovy()
-echo "Node 2"
-  }
-  
-  
-  @NonCPS
-  def testGroovy(){
+    // Load file from the current directory:
+    def externalMethod = load("externalMethod.groovy")
+    externalMethod.lookAtThis("Steve")
 
-  utils = load("org/foo/Utilities.groovy");
-	
-echo "File has loaded"
-  }
+    def externalCall = load("externalCall.groovy")
+    externalCall("Steve")
+}
+   
