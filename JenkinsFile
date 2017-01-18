@@ -1,7 +1,8 @@
+@Library('Utilities@master')
+import com.externalMethod
+
 
 node {
-@Library('Utilities')
-
   checkout scm
 
 echo "Step 1" 
