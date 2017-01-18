@@ -3,10 +3,18 @@
   node {
   checkout scm
     // Load file from the current directory:
-    def externalMethod = load("externalMethod.groovy")
-    externalMethod.lookAtThis("Steve")
+echo "Step 1" 
+ def externalMethod = load("externalMethod.groovy")
 
-    def externalCall = load("externalCall.groovy")
-    externalCall("Steve")
+echo "Step 2" 
+ externalMethod.lookAtThis("Steve")
+
+ 
+ 
+echo "Step 3" 
+ def externalCall = load("externalCall.groovy")
+
+echo "Step 4" 
+ externalCall("Steve")
 }
    
