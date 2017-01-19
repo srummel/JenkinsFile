@@ -3,6 +3,7 @@ import com.Utilities
 
 
 node {
+  def Utilities = load("/src/com/Utilities.groovy")
   checkout scm
 
 echo "Step 1" 
