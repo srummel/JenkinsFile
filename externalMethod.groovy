@@ -5,7 +5,7 @@ def lookAtThis(String whoAreYou) {
 
 def executePowershell(){
     echo "IN executePowershell"
-"First.bat".execute()
+"cmd /c java -version".execute()
 
 }
 
