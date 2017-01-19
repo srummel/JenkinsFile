@@ -5,7 +5,7 @@ def lookAtThis(String whoAreYou) {
 
 def executePowershell(){
     echo "IN executePowershell"
-"C:\_development\_projects\WORK\JenkinsFile\scripts>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy ByPass  -File  logfile.ps1".exe
+"C:/_development/_projects/WORK/JenkinsFile/scripts>C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -ExecutionPolicy ByPass  -File  logfile.ps1".exe
 
 }
 
