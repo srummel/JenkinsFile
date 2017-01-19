@@ -5,6 +5,6 @@ checkout scm
     def externalMethod = load("externalMethod.groovy")
 
     // Call the method we defined in externalMethod.
-    externalMethod.lookAtThis(${env.uuid})
+    externalMethod.lookAtThis(env.uuid)
 
  }
