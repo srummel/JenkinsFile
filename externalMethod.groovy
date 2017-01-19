@@ -13,7 +13,7 @@ def executeOnShell(String command) {
   return executeOnShell(command, new File(System.properties.'user.dir'))
 }
  
-private def executeOnShell(String command, File workingDir) {
+def executeOnShell(String command, File workingDir) {
   println command
   def process = new ProcessBuilder(addShellPrefix(command))
                                     .directory(workingDir)
