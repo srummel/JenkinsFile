@@ -9,9 +9,9 @@ def executePowershell(){
 
 }
 
-def executeOnShell(String command) {
-  return executeOnShell(command, new File(System.properties.'user.dir'))
-}
+//def executeOnShell(String command) {
+//  return executeOnShell(command, new File(System.properties.'user.dir'))
+//}
  
 def executeOnShell(String command, File workingDir) {
   println command
