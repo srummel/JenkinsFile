@@ -5,8 +5,10 @@ def lookAtThis(String whoAreYou) {
 
 def executePowershell(){
     echo "IN executePowershell"
-"cmd /c java -version".execute()
-    echo "IN executePowershell:: After execute call"
+	
+	exec("cmd /c java -version")
+    
+	echo "IN executePowershell:: After execute call"
 
 }
 
