@@ -1,13 +1,8 @@
-
-
-
 node {
-  checkout scm
-  def Utilities = load("src/com/Utilities.groovy")
+    // Load the file 'externalMethod.groovy' from the current directory, into a variable called "externalMethod".
+    def externalMethod = load("srx/com/Utilities.groovy")
 
-echo "Step 1" 
     // Call the method we defined in externalMethod.
- //   Utilities.hello(${env.UUID})
-    Utilities.hello('TEST')
-echo "Step 2" 
-}
+    externalMethod.lookAtThis("Steve")
+
+ }
