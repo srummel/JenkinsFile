@@ -7,6 +7,7 @@ node {
 
 echo "Step 1" 
     // Call the method we defined in externalMethod.
-    Utilities.hello(${env.UUID})
+ //   Utilities.hello(${env.UUID})
+    Utilities.hello('TEST')
 echo "Step 2" 
 }
