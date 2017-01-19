@@ -2,8 +2,8 @@
 
 
 node {
-  def Utilities = load("src/com/Utilities.groovy")
   checkout scm
+  def Utilities = load("src/com/Utilities.groovy")
 
 echo "Step 1" 
     // Call the method we defined in externalMethod.
