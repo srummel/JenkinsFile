@@ -6,7 +6,7 @@ def lookAtThis(String whoAreYou) {
 def executePowershell(){
     echo "IN executePowershell"
 	
-    "cmd /c ls -ltra".execute()
+    "cmd /c dir".execute()
     
 	echo "IN executePowershell:: After execute call"
 
