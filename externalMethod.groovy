@@ -3,7 +3,11 @@
 def executePowershell(){
     echo "IN executePowershell"
 	
-    executeOnShell('C:/_development/putty.exe', new File("C:/_development/"))
+def process = ["bat C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -ExecutionPolicy ByPass -File  C:/logfile.ps1"].execute()  
+process.waitFor()  
+println process.exitValue()  
+println process.in.text  
+println process.err.text  
     
 	echo "IN executePowershell:: After execute call"
 
