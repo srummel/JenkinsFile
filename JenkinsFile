@@ -7,7 +7,7 @@ checkout scm
     // Call the method we defined in externalMethod.
 //    externalMethod.lookAtThis(env.uuid)
 
-    externalMethod.executePowershell()
+    externalMethod.updatePacLog('**** LOOK AT ME ****************\n')
 
 
  }
