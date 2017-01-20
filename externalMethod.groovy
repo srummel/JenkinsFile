@@ -6,7 +6,7 @@ def executePowershell(){
 // def process = ["bat C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -ExecutionPolicy ByPass -File  C:/logfile.ps1 -DIRECTORY C:/foo"].execute()  
 // def process = "cmd /c First.bat".execute()  
 ProcessBuilder pb = new ProcessBuilder("echo %PATH%");
-pb.directory(new File("C:/foo"));
+// pb.directory(new File("C:/foo"));
 pb. redirectErrorStream(true);
 
 Process p = pb.start();
