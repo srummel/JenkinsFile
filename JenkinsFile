@@ -7,7 +7,9 @@ checkout scm
     // Call the method we defined in externalMethod.
 //    externalMethod.lookAtThis(env.uuid)
 
-    externalMethod.updatePacLog('**** LOOK AT ME ****************\n')
+
+
+    externalMethod.updatePacLog("WORKSPACE==${env.WORKSPACE}")
 
 
  }
