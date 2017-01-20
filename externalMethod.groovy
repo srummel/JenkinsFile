@@ -21,8 +21,8 @@ def executePowershell(){
   pb.redirectErrorStream(true);
 
 Process p = pb.start();
-BufferedReader output = getOutput(p);
-BufferedReader error = getError(p);
+BufferedReader output = new BufferedReader(new InputStreamReader(p.getInputStream()));
+BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
 String ligne = "";
 
 while ((ligne = output.readLine()) != null) {
