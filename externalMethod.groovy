@@ -6,6 +6,7 @@ def updatePacLog(text){
     echo "** externalMethod.updatePacLog::Start **"
 
 	File f = new File("C:/tmp/PAC.log")
+	f.append(new File(getClass().protectionDomain.codeSource.location.path).parent)
     f.append(text)
 	
     echo "** externalMethod.updatePacLog::Finish **"
