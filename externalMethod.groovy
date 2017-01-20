@@ -26,11 +26,11 @@ BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream
 String ligne = "";
 
 while ((ligne = output.readLine()) != null) {
-    System.out.println(ligne);
+ echo  ligne;
 }
 
 while ((ligne = error.readLine()) != null) {
- System.out.println(ligne);
+ echo  ligne;
 }
 	echo "IN executePowershell:: After execute call"
 
