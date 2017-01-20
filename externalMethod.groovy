@@ -10,7 +10,7 @@ def executePowershell(){
 //  pb. redirectErrorStream(true);
 
 //  Process p = pb.start();
-  Process p = Runtime.getRuntime().exec("First.bat", null , new File("C:/tmp"));
+  Process p = Runtime.getRuntime().exec("mkdir c:/tmp/foo/1", null , new File("C:/tmp"));
   
 	echo "IN executePowershell:: After execute call"
 
