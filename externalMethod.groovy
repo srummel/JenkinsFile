@@ -4,7 +4,7 @@ def executePowershell(){
     echo "IN executePowershell"
 	
 //def process = ["bat C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -ExecutionPolicy ByPass -File  C:/logfile.ps1 -DIRECTORY C:/foo"].execute()  
-def process = ["bat First.bat"].execute()  
+def process = ["First.bat"].execute()  
 process.waitFor()  
 println process.exitValue()  
 println process.in.text  
