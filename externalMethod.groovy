@@ -10,8 +10,17 @@ def executePowershell(){
 //  pb. redirectErrorStream(true);
 
 //  Process p = pb.start();
-  Process p = Runtime.getRuntime().exec("cmd /c mkdir c:/tmp/foo", null , new File("C:/tmp"));
-  
+//
+
+//  Process p = Runtime.getRuntime().exec("cmd /c mkdir c:/tmp/foo", null , new File("C:/tmp"));
+
+
+
+  ProcessBuilder pb = new ProcessBuilder("C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe", "-File", "C:/foo/logfile.ps1", "-DIRECTORY", "C:/foo");
+  pb.directory(new File("C:/foo"));
+  pb. redirectErrorStream(true);
+
+Process p = pb.start();
 	echo "IN executePowershell:: After execute call"
 
 }
