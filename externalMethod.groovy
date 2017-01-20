@@ -18,9 +18,20 @@ def executePowershell(){
 
   ProcessBuilder pb = new ProcessBuilder("C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe", "-File", "C:/foo/logfile.ps1", "-DIRECTORY", "C:/foo");
   pb.directory(new File("C:/foo"));
-  pb. redirectErrorStream(true);
+  pb.redirectErrorStream(true);
 
 Process p = pb.start();
+BufferedReader output = getOutput(p);
+BufferedReader error = getError(p);
+String ligne = "";
+
+while ((ligne = output.readLine()) != null) {
+    System.out.println(ligne);
+}
+
+while ((ligne = error.readLine()) != null) {
+ System.out.println(ligne);
+}
 	echo "IN executePowershell:: After execute call"
 
 }
