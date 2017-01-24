@@ -2,11 +2,11 @@
 import java.io.File 
 
 
-def updatePacLog(text){
+def updatePacLog(location, text){
 
     echo "** externalMethod.updatePacLog::Start **"
 
-	File f = new File(${env.WORKSPACE} + "/PAC.log")
+	File f = new File(location + "/PAC.log")
     f.append(text + '\r\n')
 	
     echo "** externalMethod.updatePacLog::Finish **"
