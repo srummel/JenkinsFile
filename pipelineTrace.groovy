@@ -1,0 +1,20 @@
+// Methods in this file will end up as object methods on the object that load returns.
+import java.io.File 
+
+
+def startStage(location, buildNumber, branchName){
+    echo "** externalMethod.startStage::Start **"
+//    private static final 
+	String SEPARATOR = ";"
+
+	File f = new File(location + "/PAC.log")
+	def timeStamp = Calendar.getInstance().format("yyy-MM-ddTHH:mm:ss.fff")
+	
+        f.append([timeStamp, buildNumber, branchName].join(SEPARATOR) +  '\r\n')
+	
+    echo "** externalMethod.startStage::Finish **"
+}
+ 
+return this;
+
+    echo "** externalMethod.updatePacLog::Finish **"

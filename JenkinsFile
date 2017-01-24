@@ -1,9 +1,13 @@
+
+
+
+
 node {
     checkout scm
-    // Load the file 'externalMethod.groovy' from the current directory, into a variable called "externalMethod".
-    def buildLog = load("externalMethod.groovy")
+    // Load the file 'pipelineTrace.groovy' from the current directory, into a variable called "externalMethod".
+    def trace = load("pipelineTrace.groovy")
 
-
+ -branchname 
 
 
 
@@ -14,7 +18,7 @@ node {
 //    def buildLog = new PipelineLog();
 
     stage('Build') {
-        buildLog.updatePacLog("${env.WORKSPACE}", "WORKSPACE==${env.WORKSPACE}")
+        trace.startStage("${env.WORKSPACE}", %build_number%,  %branch_name%')
 //        buildLog.startStage('Build')
     }
 
