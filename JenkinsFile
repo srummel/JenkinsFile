@@ -5,13 +5,15 @@
  * from https://github.com/hotwilson/jenkins2/edit/master/Jenkinsfile
  * by wilsonmar@gmail.com 
  */
- 
+ import com.Tracer
 import hudson.model.*
 
 node {
     checkout scm
     // Load the file 'pipelineTrace.groovy' from the current directory, into a variable called "externalMethod".
-    def trace = load("pipelineTrace.groovy")
+//    def trace = load("pipelineTrace.groovy")
+def trace = new Tracer()
+
 
     stage('Build') {
         trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
