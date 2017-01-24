@@ -8,7 +8,7 @@ def updatePacLog(text){
 Calendar cal=Calendar.getInstance();
 
 
-	f.append(new File(getClass().protectionDomain.codeSource.location.path).absolutePath + 'PAC.log\r\n')
+	File f.append(new File(getClass().protectionDomain.codeSource.location.path).absolutePath + 'PAC.log\r\n')
     f.append(text + '\r\n')
 	
     echo "** externalMethod.updatePacLog::Finish **"
@@ -17,7 +17,7 @@ def startStage(){
 
     echo "** externalMethod.startStage::Start **"
 
-	f.append(new File(getClass().protectionDomain.codeSource.location.path).absolutePath + 'PAC.log\r\n')
+	File f.append(new File(getClass().protectionDomain.codeSource.location.path).absolutePath + 'PAC.log\r\n')
 	
     echo "** externalMethod.startStage::Finish **"
 }
