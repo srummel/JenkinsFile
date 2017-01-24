@@ -6,8 +6,8 @@ def updatePacLog(text){
 
     echo "** externalMethod.updatePacLog::Start **"
 
-	File f = new File("C:/tmp/PAC.log")
-	f.append(new File(getClass().protectionDomain.codeSource.location.path).absolutePath + '\r\n')
+	def workspaceLocation = getClass().protectionDomain.codeSource.location.path).absolutePath
+	File f = new File(workspaceLocation + "/PAC.log")
     f.append(text + '\r\n')
 	
     echo "** externalMethod.updatePacLog::Finish **"
