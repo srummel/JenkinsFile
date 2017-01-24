@@ -8,12 +8,12 @@ node {
     def trace = load("pipelineTrace.groovy")
 
     stage('Build') {
-        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}")
+        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
 //        buildLog.startStage('Build')
     }
 
     stage('Code Coverage') {
-//        buildLog.startStage('Code Coverage')
+//        buildLog.startCodeCoverage('Code Coverage')
     }
     stage('Deploy') {
  //       buildLog.startStage('Deploy')
