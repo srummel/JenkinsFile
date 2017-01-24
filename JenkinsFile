@@ -9,7 +9,7 @@ node {
 //trace.buildNumber = "${env.BUILD_NUMBER}"
 
     stage('Build') {
-        trace.startStage(  "${env.GIT_BRANCH}", 'BUILD')
+        trace.startBuild(  "${env.GIT_BRANCH}", 'BUILD')
     }
 
     stage('Code Coverage') {
