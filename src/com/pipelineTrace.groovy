@@ -7,7 +7,7 @@ import java.util.Date
 
 
 
-Class Tracer{
+class Tracer{
 
 
 def startStage(location, buildNumber, buildEnvironment, stage){
