@@ -7,16 +7,6 @@ node {
     // Load the file 'pipelineTrace.groovy' from the current directory, into a variable called "externalMethod".
     def trace = load("pipelineTrace.groovy")
 
- -branchname 
-
-
-
-
-
-
-//    def buildLog = load 'PipelineLog.groovy'
-//    def buildLog = new PipelineLog();
-
     stage('Build') {
         trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH }")
 //        buildLog.startStage('Build')
