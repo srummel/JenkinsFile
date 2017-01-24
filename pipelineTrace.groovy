@@ -2,13 +2,7 @@
 import java.io.File 
 import java.util.Date
 
-def location
-def buildNumber
-def buildEnvironment
-
-
-
-def startStage( buildNumber, buildEnvironment, stage){
+def startStage(buildNumber, buildEnvironment, stage){
     echo "** externalMethod.startStage::Start **"
 
 	File f = new File(location + "/PAC.log")
@@ -17,6 +11,10 @@ def startStage( buildNumber, buildEnvironment, stage){
 	
     echo "** externalMethod.startStage::Finish **"
 }
+def location
+def buildNumber
+def buildEnvironment
+
  
 return this;
 
