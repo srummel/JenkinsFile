@@ -4,13 +4,11 @@ import java.util.Calendar
 
 def startStage(location, buildNumber, buildEnvironment){
     echo "** externalMethod.startStage::Start **"
-//    private static final 
-	String SEPARATOR = ";"
 
 	File f = new File(location + "/PAC.log")
 	def timeStamp = Calendar.getInstance().format("yyy-MM-ddTHH:mm:ss.fff")
 	
-        f.append([timeStamp, buildNumber, buildEnvironment].join(SEPARATOR) +  '\r\n')
+    f.append([timeStamp, buildNumber, buildEnvironment].join(";") +  '\r\n')
 	
     echo "** externalMethod.startStage::Finish **"
 }
