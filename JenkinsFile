@@ -1,29 +1,31 @@
 node {
     checkout scm
-    def buildLog = load 'PipelineLog.groovy'
+    // Load the file 'externalMethod.groovy' from the current directory, into a variable called "externalMethod".
+    def buildLog = load("externalMethod.groovy")
+
+
+
+
+
+
+
+
+//    def buildLog = load 'PipelineLog.groovy'
 //    def buildLog = new PipelineLog();
 
     stage('Build') {
-        buildLog.startStage('Build')
+        buildLog.updatePacLog("WORKSPACE==${env.WORKSPACE}")
+//        buildLog.startStage('Build')
     }
 
     stage('Code Coverage') {
-        buildLog.startStage('Code Coverage')
+//        buildLog.startStage('Code Coverage')
     }
     stage('Deploy') {
-        buildLog.startStage('Deploy')
+ //       buildLog.startStage('Deploy')
     }
 
 
-
-    // Load the file 'externalMethod.groovy' from the current directory, into a variable called "externalMethod".
-//    def externalMethod = load("externalMethod.groovy")
-
-    // Call the method we defined in externalMethod.
-//    externalMethod.lookAtThis(env.uuid)
-
-
-//    externalMethod.updatePacLog("WORKSPACE==${env.WORKSPACE}")
 
 
 }
