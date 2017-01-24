@@ -1,4 +1,4 @@
-package com
+package com.servicemaster
 
 // Methods in this file will end up as object methods on the object that load returns.
 import java.io.File 

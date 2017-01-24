@@ -5,7 +5,7 @@
  * from https://github.com/hotwilson/jenkins2/edit/master/Jenkinsfile
  * by wilsonmar@gmail.com 
  */
- import com.Tracer
+ import com.servicemaster.Tracer
 import hudson.model.*
 
 node {
