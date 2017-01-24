@@ -1,6 +1,6 @@
 // Methods in this file will end up as object methods on the object that load returns.
 import java.io.File 
-import java.util
+import java.util.Calendar
 
 def startStage(location, buildNumber, buildEnvironment){
     echo "** externalMethod.startStage::Start **"
