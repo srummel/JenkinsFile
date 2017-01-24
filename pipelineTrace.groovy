@@ -11,9 +11,9 @@ def startStage(buildNumber, buildEnvironment, stage){
 	
     echo "** externalMethod.startStage::Finish **"
 }
-def location
-def buildNumber
-def buildEnvironment
+//def location
+//def buildNumber
+//def buildEnvironment
 
  
 return this;
