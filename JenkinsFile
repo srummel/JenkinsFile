@@ -9,14 +9,13 @@ node {
 
     stage('Build') {
         trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
-//        buildLog.startStage('Build')
     }
 
     stage('Code Coverage') {
-//        buildLog.startCodeCoverage('Code Coverage')
+        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Coverage')
     }
     stage('Deploy') {
- //       buildLog.startStage('Deploy')
+        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deploy')
     }
 
 
