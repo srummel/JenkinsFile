@@ -6,7 +6,7 @@ def startStage(location, buildNumber, buildEnvironment){
     echo "** externalMethod.startStage::Start **"
 
 	File f = new File(location + "/PAC.log")
-	def timeStamp = new Date().format('yyy-MM-ddHH:mm:ss')
+	def timeStamp = new Date().format('yyyy-MM-dd HH:mm:ss.SSS')
     f.append([timeStamp, buildNumber, buildEnvironment].join(";") +  '\r\n')
 	
     echo "** externalMethod.startStage::Finish **"
