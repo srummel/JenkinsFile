@@ -14,7 +14,7 @@ node {
 //    def buildLog = new PipelineLog();
 
     stage('Build') {
-        buildLog.updatePacLog(${env.WORKSPACE}, "WORKSPACE==${env.WORKSPACE}")
+        buildLog.updatePacLog("${env.WORKSPACE}", "WORKSPACE==${env.WORKSPACE}")
 //        buildLog.startStage('Build')
     }
 
