@@ -18,7 +18,7 @@ node {
 //    def buildLog = new PipelineLog();
 
     stage('Build') {
-        trace.startStage("${env.WORKSPACE}", %build_number%,  %branch_name%')
+        trace.startStage("${env.WORKSPACE}",${build_number} %%,  ${branch_name}')
 //        buildLog.startStage('Build')
     }
 

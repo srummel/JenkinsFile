@@ -2,7 +2,7 @@
 import java.io.File 
 
 
-def startStage(location, buildNumber, branchName){
+def startStage(location, buildNumber, buildEnvironment){
     echo "** externalMethod.startStage::Start **"
 //    private static final 
 	String SEPARATOR = ";"
@@ -10,7 +10,7 @@ def startStage(location, buildNumber, branchName){
 	File f = new File(location + "/PAC.log")
 	def timeStamp = Calendar.getInstance().format("yyy-MM-ddTHH:mm:ss.fff")
 	
-        f.append([timeStamp, buildNumber, branchName].join(SEPARATOR) +  '\r\n')
+        f.append([timeStamp, buildNumber, buildEnvironment].join(SEPARATOR) +  '\r\n')
 	
     echo "** externalMethod.startStage::Finish **"
 }
