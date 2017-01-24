@@ -8,7 +8,7 @@ node {
     def trace = load("pipelineTrace.groovy")
 
     stage('Build') {
-        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH }")
+        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}")
 //        buildLog.startStage('Build')
     }
 
