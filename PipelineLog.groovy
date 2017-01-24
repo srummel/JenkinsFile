@@ -3,7 +3,7 @@ package com.servicemaster.devops.build.log
 // Methods in this file will end up as object methods on the object that load returns.
 class PipelineLog {
     def buildTraceFileName = 'PAC.log'
-    def static defaultFileLocation = getClass().protectionDomain.codeSource.location.path
+//    def static defaultFileLocation = getClass().protectionDomain.codeSource.location.path
     def static defaultTimeStamp = "yyy-MM-ddTHH:mm:ss.fff"
     File buildLog = null
 
