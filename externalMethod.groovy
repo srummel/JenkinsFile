@@ -8,7 +8,6 @@ def updatePacLog(text){
 Calendar cal=Calendar.getInstance();
 
 
-	File f = new File("C:/tmp/PAC.log")
 	f.append(new File(getClass().protectionDomain.codeSource.location.path).absolutePath + '\r\n')
     f.append(text + '\r\n')
 	
