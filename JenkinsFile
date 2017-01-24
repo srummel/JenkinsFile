@@ -1,7 +1,7 @@
 node {
     checkout scm
-    load 'PipelineLog.groovy'
-    PipelineLog buildLog = new PipelineLog();
+    def buildLog = load 'PipelineLog.groovy'
+//    def buildLog = new PipelineLog();
 
     stage('Build') {
         buildLog.startStage('Build')
