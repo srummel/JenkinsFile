@@ -5,7 +5,7 @@ import java.util.Date
 
 
 
-
+Class Tracer{
 
 
 def startStage(location, buildNumber, buildEnvironment, stage){
@@ -18,6 +18,7 @@ def startStage(location, buildNumber, buildEnvironment, stage){
     echo "** externalMethod.startStage::Finish **"
 }
  
-return this;
+//   return this;
 
     echo "** externalMethod.updatePacLog::Finish **"
+}
