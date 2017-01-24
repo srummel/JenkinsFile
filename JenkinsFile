@@ -6,19 +6,17 @@ node {
     checkout scm
     // Load the file 'pipelineTrace.groovy' from the current directory, into a variable called "externalMethod".
     def trace = load("pipelineTrace.groovy")
+trace.buildNumber = "${env.BUILD_NUMBER}"
 
     stage('Build') {
-        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
+        trace.startStage(  "${env.GIT_BRANCH}", 'BUILD')
     }
 
     stage('Code Coverage') {
-        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Coverage')
+//        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Coverage')
     }
     stage('Deploy') {
-        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deploy')
+//        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deploy')
     }
-
-
-
 
 }
