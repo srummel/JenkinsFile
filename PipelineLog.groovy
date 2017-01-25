@@ -7,15 +7,15 @@ class PipelineLog implements Serializable {
     def static defaultTimeStamp = "yyy-MM-ddTHH:mm:ss.fff"
     File buildLog = null
 
-    void startPipeline(){
+    void startPipeline() {
         // update pac.log with start template
         buildLog = getTraceFile()
         buildLog.println("This is the beginning")
         Calendar.getInstance().format("yyy-MM-ddTHH:mm:ss.fff")
-File f = new File(location + "/PAC.log")
+        File f = new File(location + "/PAC.log")
         def timeStamp = Calendar.getInstance().format("yyy-MM-ddTHH:mm:ss.fff")
-private static final String SEPARATOR = ";"
-        f.append([timeStamp, buildNumber, buildEnvironment].join(SEPARATOR) +  '\r\n')
+        private static final String SEPARATOR = ";"
+        f.append([timeStamp, buildNumber, buildEnvironment].join(SEPARATOR) + '\r\n')
 
 
     }
@@ -26,7 +26,7 @@ private static final String SEPARATOR = ";"
 
         File file = getFile(fileName)
         file.println(defaultFileLocation)
-        file.append(Calendar.instance.time.format(defaultTimeStamp) )
+        file.append(Calendar.instance.time.format(defaultTimeStamp))
 
         println "PipelineLog.addTimestamp::Finish"
     }
@@ -51,7 +51,7 @@ private static final String SEPARATOR = ";"
         println "PipelineLog.addTimestamp::Finish"
     }
 
-    void writeLine(fileName, line){
+    void writeLine(fileName, line) {
 
     }
 
@@ -63,8 +63,8 @@ private static final String SEPARATOR = ";"
         }
     }
 
-    private File getTraceFile(){
-        if (buildLog == null){
+    private File getTraceFile() {
+        if (buildLog == null) {
             // Initialize
             buildLog = new File('PAC.log')
         }
@@ -74,7 +74,7 @@ private static final String SEPARATOR = ";"
 
     private File getFile(dir, String fileName) {
         String location = defaultFileLocation
-        if(dir == null){
+        if (dir == null) {
             location = dir
         }
         // Validate that location ends with a / to be able to append file name

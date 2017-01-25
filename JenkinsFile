@@ -2,9 +2,8 @@ node('master') {
     checkout scm
     // Load the file 'pipelineTrace.groovy' from the current directory, into a variable called "externalMethod".
     def trace = load("pipelineTrace.groovy")
-    def logging = load("logFile.groovy")
-    
-    
+    def logs = load("logFile.groovy")
+
 //	def config = load("loadConfig.groovy")
 
     def WORKSPACE = "${env.WORKSPACE}"
@@ -12,55 +11,72 @@ node('master') {
 //    def myEnv = config.loadConfig()
 //	echo "ArtifactFolder== ${myEnv.ArtifactFolder}"           
 
-    trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Pipeline')
+    trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Pipeline')
 
     def nugent = load("_nugent")
 
     stage('Build') {
-       trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
+        trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'BUILD')
 
-		try{
-          
-          nugent.executeMSBuild('${Package_type}')
+        try {
 
-          def logstash = load("_logstash")
-		  logstash.copyLogFiles()
-		}
-		catch(err){
-		   throw err
-		}
-		finally{
-		  trace.endStage(WORKSPACE, "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
-		}
+            nugent.executeMSBuild('${Package_type}')
+
+            def logstash = load("_logstash")
+            logstash.copyLogFiles()
+        }
+        catch (err) {
+            throw err
+        }
+        finally {
+            trace.endStage(WORKSPACE, "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'BUILD')
+        }
     }
 
     stage('Code Coverage') {
-        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Coverage')
+        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Coverage')
 
-    try {
-       if ("${env.MS_TEST}" == "") {
-	   def message = "No test location identified in PAC.json"
-          echo ${message}
-		  trace.output("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", "${message}")
-        } else {
-          def coverage = load("_coverage")
-          coverage.runCodeCoverate()
+        try {
+            if ("${env.MS_TEST}" == "") {
+                def message = "No test location identified in PAC.json"
+                echo $ { message }
+                trace.output("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", "${message}")
+            } else {
+                def coverage = load("_coverage")
+                coverage.runCodeCoverate()
+            }
+        } catch (err) {
+            logs.copyLogFile('%LOG_FOLDER%', '%SRC_LOG%')
+            logs.copyLogFile('%LOG_FOLDER%', '%GIT_LOG%')
+            throw err
         }
-   } catch (err) {
-        bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_LOG% -copy_path %LOG_FOLDER%'
-		bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %GIT_LOG% -copy_path %LOG_FOLDER%'
-        throw err
-    }
 
-        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Coverage')
+        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Coverage')
     }
 
     stage('Code Analysis') {
-        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Analysis')
+        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Analysis')
 
-        //  IMPLEMENT THIS
+        try {
+            echo "${env.UUID}"
+            if ("${env.MS_TEST}" == "") {
+                def message = "No test location identified in PAC.json"
+                echo $ { message }
+                trace.output("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", "${message}")
+            } else {
+                bat '"%FXCOP_V14%" /f:"%ARTIFACT_PATH%/%FXCOP_FILTER%" /o:"%WORKSPACE%/fxcopout.xml" /ignoreinvalidtargets /verbose /gac'
+                //Code Analysis logs to move to LogStash folder
+//            bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER_CA%'
+                logs.copyLogFile('%LOG_FOLDER_CA%', '%SRC_FXCOP%')
+            }
+        } catch (err) {
+            logs.copyLogFile('%LOG_FOLDER_CA%', '%SRC_FXCOP%')
+            logs.copyLogFile('%LOG_FOLDER%', '%SRC_LOG%')
+            logs.copyLogFile('%LOG_FOLDER%', '%GIT_LOG%')
+            throw err
+        }
 
-        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Analysis')
+        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Analysis')
     }
 
 //    stage('Install Package') {
@@ -89,8 +105,9 @@ node('master') {
 //        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to TEST')
 //    }
 }
- 
-def clean(){
+
+def clean() {
     bat '"%powershell%" -ExecutionPolicy ByPass -File %delete_folder% -DIRECTORY %ARTIFACT_PATH%'
     bat '"%powershell%" -ExecutionPolicy ByPass -File %delete_folder% -DIRECTORY %PACKAGE_PATH%'
 }
+
