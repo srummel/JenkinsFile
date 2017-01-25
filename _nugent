@@ -33,10 +33,10 @@ def executeMSBuild(package_type){
 
 def outputEnvironmentVars(package_type){
    echo "** nugent.executeMSBuild::Start **"
-	echo "SLAVE_NUGET = %SLAVE_NUGET%"
-	echo "SOLUTION_PATH = %SOLUTION_PATH%"
-	echo "SLAVE_MSBUILD = %SLAVE_MSBUILD%"
-	echo "BUILD_TYPE = %BUILD_TYPE%"
-	echo "Package_type = " + package_type
+	echo "nugent.SLAVE_NUGET = %SLAVE_NUGET%"
+	echo "nugent.SOLUTION_PATH = %SOLUTION_PATH%"
+	echo "nugent.SLAVE_MSBUILD = %SLAVE_MSBUILD%"
+	echo "nugent.BUILD_TYPE = %BUILD_TYPE%"
+	echo "nugent.Package_type = " + package_type
 }
  return this

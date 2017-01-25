@@ -11,10 +11,10 @@ def copyLogFiles(){
 }
 
 def outputEnvironmentVars(package_type){
-   echo "** nugent.executeMSBuild::Start **"
-	echo "copy_logs = %copy_logs%"
-	echo "SRC_BUILD = %SRC_BUILD%"
-	echo "LOG_FOLDER_BLD = %LOG_FOLDER_BLD%"
+   echo "** logstash.executeMSBuild::Start **"
+	echo "logstash.copy_logs = %copy_logs%"
+	echo "logstash.SRC_BUILD = %SRC_BUILD%"
+	echo "logstash.LOG_FOLDER_BLD = %LOG_FOLDER_BLD%"
 }
 
 return this
