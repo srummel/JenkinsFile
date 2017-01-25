@@ -5,10 +5,8 @@ node {
 
     def WORKSPACE = "${env.WORKSPACE}"
 
-    def env = new ConfigSlurper().parse(new File(WORKSPACE + "/env.txt").toURL())
-
-
-
+    def env = loadConfig()
+	
 
     trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Pipeline')
 
@@ -67,6 +65,13 @@ node {
 //    }
 }
 
+@NonCPS
+def loadConfig(){
+	new ConfigSlurper().parse(new File(WORKSPACE + "/env.txt").toURL())
+}
+ 
+ 
+ 
 def clean(){
     bat '"%powershell%" -ExecutionPolicy ByPass -File %delete_folder% -DIRECTORY %ARTIFACT_PATH%'
     bat '"%powershell%" -ExecutionPolicy ByPass -File %delete_folder% -DIRECTORY %PACKAGE_PATH%'
