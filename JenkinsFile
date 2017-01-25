@@ -17,7 +17,7 @@ node('master') {
     stage('Build') {
         trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
         try {
-          def nugent = readFile 'nugent'
+          def nugent = load("nugent")
           nugent.executeMSBuild()
 		  
         } catch(e){
