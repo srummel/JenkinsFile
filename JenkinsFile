@@ -17,9 +17,10 @@ node {
 
     stage('Build') {
         trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
-		try {
+		try() {
 		//  IMPLEMENT THIS
-		} catch()
+		} catch(){
+		}
         trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
     }
 
