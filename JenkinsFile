@@ -10,7 +10,7 @@ node {
     // Load the file 'pipelineTrace.groovy' from the current directory, into a variable called "externalMethod".
     def trace = load("pipelineTrace.groovy")
 
-	sh 'env > env.txt'
+	bat 'env > env.txt'
     readFile('env.txt').split("\r?\n").each {
       println it
     }
