@@ -8,7 +8,7 @@
 node {
     checkout scm
     // Load the file 'pipelineTrace.groovy' from the current directory, into a variable called "externalMethod".
-//    def trace = load("pipelineTrace.groovy")
+    def trace = load("pipelineTrace.groovy")
 
 
     stage('Build') {
