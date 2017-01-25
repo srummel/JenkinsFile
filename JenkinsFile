@@ -64,7 +64,7 @@ node('master') {
                 echo $ { message }
                 trace.output("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", "${message}")
             } else {
-                bat '"%FXCOP_V14%" /f:"%ARTIFACT_PATH%/%FXCOP_FILTER%" /o:"%WORKSPACE%/fxcopout.xml" /ignoreinvalidtargets /verbose /gac'
+//                bat '"%FXCOP_V14%" /f:"%ARTIFACT_PATH%/%FXCOP_FILTER%" /o:"%WORKSPACE%/fxcopout.xml" /ignoreinvalidtargets /verbose /gac'
                 //Code Analysis logs to move to LogStash folder
 //            bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER_CA%'
                 logs.copyLogFile('%LOG_FOLDER_CA%', '%SRC_FXCOP%')
