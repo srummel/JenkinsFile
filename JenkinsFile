@@ -35,15 +35,14 @@ node('master') {
 
     stage('Code Coverage') {
         trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Coverage')
-
         try {
             if ("${env.MS_TEST}" == "") {
                 def message = "No test location identified in PAC.json"
                 echo $ { message }
                 trace.output("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", "${message}")
             } else {
-                def coverage = load("_coverage")
-                coverage.runCodeCoverate()
+                def coverage = load("_codeCoverage")
+                coverage.runCodeCoverage()
             }
         } catch (err) {
             logs.copyLogFile('%LOG_FOLDER%', '%SRC_LOG%')
@@ -64,7 +63,9 @@ node('master') {
                 echo $ { message }
                 trace.output("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", "${message}")
             } else {
-//                bat '"%FXCOP_V14%" /f:"%ARTIFACT_PATH%/%FXCOP_FILTER%" /o:"%WORKSPACE%/fxcopout.xml" /ignoreinvalidtargets /verbose /gac'
+                def analysis = load("_codeAnalysis")
+                analysis.runCodeAnalysis()
+
                 //Code Analysis logs to move to LogStash folder
 //            bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER_CA%'
                 logs.copyLogFile('%LOG_FOLDER_CA%', '%SRC_FXCOP%')
@@ -84,17 +85,12 @@ node('master') {
 
     try {
         echo "${env.UUID}"
-        if ("${env.MS_TEST}" == "") {
-                def message = "No test location identified in PAC.json"
-                echo $ { message }
-                trace.output("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", "${message}")
-        } else {
-//            bat '"%FXCOP_V14%" /f:"%ARTIFACT_PATH%/%FXCOP_FILTER%" /o:"%WORKSPACE%/fxcopout.xml" /ignoreinvalidtargets /verbose /gac'
 
-            //Code Analysis logs to move to LogStash folder
-            logs.copyLogFile('%LOG_FOLDER_CA%', '%SRC_FXCOP%')
-        }
-    } catch (err) {
+        def analysis = load("_installArtifact")
+        analysis.runCodeAnalysis()
+
+
+   } catch (err) {
 //        bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER_CA%'
             logs.copyLogFile('%LOG_FOLDER_CA%', '%SRC_FXCOP%')
             logs.copyLogFile('%LOG_FOLDER%', '%SRC_LOG%')
@@ -105,23 +101,24 @@ node('master') {
         trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Install Package')
     }
 
-//    stage('Artifact Upload') {
-//        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Artifact Upload')
-//
-//        //  IMPLEMENT THIS
-//
-//        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Artifact Upload')
-//    }
-//
-//    stage('Deployment to DEV') {
-//        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to DEV')
-//        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to DEV')
-//    }
-//
-//    stage('Deployment to TEST') {
-//        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to TEST')
-//        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to TEST')
-//    }
+    stage('Artifact Upload') {
+        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Artifact Upload')
+
+        def artifactUpload = load("_artifactUpload")
+        artifactUpload.runCodeAnalysis()
+
+        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Artifact Upload')
+    }
+
+    stage('Deployment to DEV') {
+        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to DEV')
+        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to DEV')
+    }
+
+    stage('Deployment to TEST') {
+        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to TEST')
+        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to TEST')
+    }
 }
 
 def clean() {
