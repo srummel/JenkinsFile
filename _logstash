@@ -1,8 +1,4 @@
-{->   
-  node('master') {
-    executeMSBuild()
-  }
-}   
+ 
 def copyLogFiles(){
     echo "** logstash.copyLogFiles::Start **"
 
