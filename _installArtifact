@@ -1,6 +1,6 @@
 def installArtifact(){
     echo "Internal_Method::nugent.installArtifact::Start **"
-	outputEnvironmentVars(package_type)
+	outputEnvironmentVars()
 
 //switch ("${Package_type}".toUpperCase()) {
 //   case "NUGET":
@@ -72,12 +72,11 @@ def installArtifact(){
     echo "Internal_Method::nugent.installArtifact::Finish **"
 }
 
-def outputEnvironmentVars(package_type){
+def outputEnvironmentVars(){
    echo "** nugent.executeMSBuild::Start **"
 	echo "nugent.SLAVE_NUGET = %SLAVE_NUGET%"
 	echo "nugent.SOLUTION_PATH = %SOLUTION_PATH%"
 	echo "nugent.SLAVE_MSBUILD = %SLAVE_MSBUILD%"
 	echo "nugent.BUILD_TYPE = %BUILD_TYPE%"
-	echo "nugent.Package_type = " + package_type
 }
  return this

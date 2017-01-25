@@ -10,7 +10,7 @@ def copyLogFiles(){
     echo "** logstash.copyLogFiles::Finish **"
 }
 
-def outputEnvironmentVars(package_type){
+def outputEnvironmentVars(){
    echo "** logstash.executeMSBuild::Start **"
 	echo "logstash.copy_logs = %copy_logs%"
 	echo "logstash.SRC_BUILD = %SRC_BUILD%"
