@@ -3,53 +3,10 @@
 ## 
 bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER%'
 
-
-//"Code Coverage" stage for Jenkins pipeline
-stage ("Code Coverage") {
-    try {
-        echo "${env.UUID}"
-		
-        if ("${env.MS_TEST}" == "") {
-            echo "No test location identified in PAC.json"
-            bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "No test location identified in PAC.json" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
-        } else {
-            bat '"%powershell%" -ExecutionPolicy ByPass -File "%OC_PS%" -TEST_PATH %ARTIFACT_PATH% -TEST_PATTERN %TEST_PATTERN% -WORKSPACE %WORKSPACE%'
-            bat '%OPENCOVER% -target:%WORKSPACE%/nunit.bat -targetargs:"%OC_ARGS%" "%OC_FILTER%" -register -targetdir:%ARTIFACT_PATH% -searchdirs:%ARTIFACT_PATH% -output:%WORKSPACE%/OpenCoverTests.xml'
-            bat '%REPORTGENERATOR% -reports:"%WORKSPACE%/OpenCoverTests.xml" -targetdir:"Reports/opencover"'
-			bat '%REPORTGENERATOR% -reports:"%WORKSPACE%/OpenCoverTests.xml" -targetdir:"Reports/opencoversummary" -reporttypes:XML'
-
-            publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'Reports/opencover', reportFiles: 'index.htm', reportName: 'OpenCover Results'])
-            //Code Coverage logs to move to LogStash folder
-            bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER_CCN%'
-            bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER_CCO%'
-
-            bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER_CCR_OC%'
-
-
-            bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_NUNIT% -copy_path %LOG_FOLDER_CCN%'
-            bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_OC% -copy_path %LOG_FOLDER_CCO%'
-			bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_OC_SUM% -copy_path %LOG_FOLDER_CCO%'
-
-            bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_REPORT_OC% -copy_path %LOG_FOLDER_CCR_OC%'
-
-        }
-
-    } catch (err) {
-        bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "End Code Coverage; Failure" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
-		bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "End Pipeline; Failure" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
-
-        bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_LOG% -copy_path %LOG_FOLDER%'
-		bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %GIT_LOG% -copy_path %LOG_FOLDER%'
-        throw err
-    }
-}
-
-
 //"Code Analysis" stage for Jenkins pipeline
 stage ("Code Analysis") {
     try {
         echo "${env.UUID}"
-        bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "Begin Code Analysis" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
         if ("${env.MS_TEST}" == "") {
             echo "No test location identified in PAC.json"
             bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "No test location identified in PAC.json" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
