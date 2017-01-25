@@ -4,12 +4,12 @@ node('master') {
     def trace = load("pipelineTrace.groovy")
     
     
-	def config = load("loadConfig.groovy")
+//	def config = load("loadConfig.groovy")
 
     def WORKSPACE = "${env.WORKSPACE}"
 
-    def myEnv = config.loadConfig()
-	echo "ArtifactFolder== ${myEnv.ArtifactFolder}"           
+//    def myEnv = config.loadConfig()
+//	echo "ArtifactFolder== ${myEnv.ArtifactFolder}"           
 
     trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Pipeline')
 
