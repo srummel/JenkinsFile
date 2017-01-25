@@ -1,75 +1,70 @@
-
-/**
- * Sample Jenkinsfile for Jenkins2 Pipeline
- * from https://github.com/hotwilson/jenkins2/edit/master/Jenkinsfile
- * by wilsonmar@gmail.com 
- */
-
 node {
     checkout scm
     // Load the file 'pipelineTrace.groovy' from the current directory, into a variable called "externalMethod".
     def trace = load("pipelineTrace.groovy")
 
-	def env = new ConfigSlurper().parse(new File("${env.WORKSPACE}/env.txt").toURL())
-	
-	
-	
-	
-    trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Pipeline')
- 
+    def WORKSPACE = "${env.WORKSPACE}"
+
+    def env = new ConfigSlurper().parse(new File(WORKSPACE + "/env.txt").toURL())
+
+
+
+
+    trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Pipeline')
+
 
     stage('Build') {
-        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
-		try {
-		//  IMPLEMENT THIS
-		} catch(e){
-		}
-		finally {
-          trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
-		}
+        trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
+        try {
+            //  IMPLEMENT THIS
+        } catch(e){
+        }
+        finally {
+            trace.endStage(WORKSPACE, "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
+        }
     }
 
-    stage('Code Coverage') {
-        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Coverage')
-		
-		//  IMPLEMENT THIS
-		
-        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Coverage')
-    }
-
-    stage('Code Analysis') {
-        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Analysis')
-		
-		//  IMPLEMENT THIS
-		
-        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Analysis')
-    }
-
-    stage('Install Package') {
-        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Install Package')
-		
-		//  IMPLEMENT THIS
-		
-        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Install Package')
-    }
-
-    stage('Artifact Upload') {
-        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Artifact Upload')
-		
-		//  IMPLEMENT THIS
-		
-        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Artifact Upload')
-    }
-
-    stage('Deployment to DEV') {
-        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to DEV')
-        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to DEV')
-    }
-
-    stage('Deployment to TEST') {
-        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to TEST')
-        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to TEST')
-    }
+//    stage('Code Coverage') {
+//        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Coverage')
+//
+//        //  IMPLEMENT THIS
+//
+//        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Coverage')
+//    }
+//
+//    stage('Code Analysis') {
+//        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Analysis')
+//
+//        //  IMPLEMENT THIS
+//
+//        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Analysis')
+//    }
+//
+//    stage('Install Package') {
+//        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Install Package')
+//
+//        //  IMPLEMENT THIS
+//
+//        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Install Package')
+//    }
+//
+//    stage('Artifact Upload') {
+//        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Artifact Upload')
+//
+//        //  IMPLEMENT THIS
+//
+//        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Artifact Upload')
+//    }
+//
+//    stage('Deployment to DEV') {
+//        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to DEV')
+//        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to DEV')
+//    }
+//
+//    stage('Deployment to TEST') {
+//        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to TEST')
+//        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to TEST')
+//    }
 }
 
 def clean(){

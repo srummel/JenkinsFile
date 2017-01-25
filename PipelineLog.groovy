@@ -12,8 +12,7 @@ class PipelineLog implements Serializable {
         buildLog = getTraceFile()
         buildLog.println("This is the beginning")
         Calendar.getInstance().format("yyy-MM-ddTHH:mm:ss.fff")
-
-        File f = new File(location + "/PAC.log")
+File f = new File(location + "/PAC.log")
         def timeStamp = Calendar.getInstance().format("yyy-MM-ddTHH:mm:ss.fff")
 private static final String SEPARATOR = ";"
         f.append([timeStamp, buildNumber, buildEnvironment].join(SEPARATOR) +  '\r\n')
@@ -84,3 +83,6 @@ private static final String SEPARATOR = ";"
     }
 
 }
+
+
+
