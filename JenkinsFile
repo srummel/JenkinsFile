@@ -87,7 +87,7 @@ node('master') {
         echo "${env.UUID}"
 
         def analysis = load("_installArtifact")
-        analysis.runCodeAnalysis()
+        analysis.installArtifact()
 
 
    } catch (err) {
