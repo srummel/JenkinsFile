@@ -24,7 +24,7 @@ node('master') {
 
           def logstash = load("_logstash")
 		  logstash.copyLogFiles()
-
+		}
 		catch(err){
 		   throw err
 		}
