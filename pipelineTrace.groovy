@@ -6,8 +6,8 @@ def startStage(location, buildNumber, buildEnvironment, stage){
 	def timeStamp = new Date().format('yyyy-MM-dd HH:mm:ss.SSS')
     f.append([timeStamp, buildNumber, buildEnvironment].join("; ") + "Begin " + stage + '\r\n')
 	
-    echo "** externalMethod.startStage::Finish **"
+    echo "** externalMethod.startStage::" + stage + "::Finish **"
 }
     return this;
 
-    echo "** externalMethod.updatePacLog::Finish **"
+    echo "** externalMethod.updatePacLog::" + stage + "::Finish **"
