@@ -1,5 +1,5 @@
-def executeMSBuild(package_type){
-    echo "** nugent.executeMSBuild::Finish **"
+def installArtifact(){
+    echo "Internal_Method::nugent.installArtifact::Start **"
 	outputEnvironmentVars(package_type)
 
 //switch ("${Package_type}".toUpperCase()) {
@@ -69,7 +69,7 @@ def executeMSBuild(package_type){
 //      break
 //
 
-    echo "** nugent.executeMSBuild::Finish **"
+    echo "Internal_Method::nugent.installArtifact::Finish **"
 }
 
 def outputEnvironmentVars(package_type){
