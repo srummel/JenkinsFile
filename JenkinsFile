@@ -19,9 +19,11 @@ node {
         trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
 		try() {
 		//  IMPLEMENT THIS
-		} catch(){
+		} catch(e){
 		}
-        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
+		finally {
+          trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
+		}
     }
 
     stage('Code Coverage') {
