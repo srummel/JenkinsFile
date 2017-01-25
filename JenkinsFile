@@ -36,7 +36,14 @@ node('master') {
     stage('Code Coverage') {
         trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Coverage')
 
-        nugent.executeMSBuild('${Package_type}')
+       if ("${env.MS_TEST}" == "") {
+	   def message = "No test location identified in PAC.json"
+          echo ${message}
+		  trace.output("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", "${message}")
+        } else {
+          def coverage = load("_coverage")
+          coverage.runCodeCoverate()
+        }
 
         trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Coverage')
     }

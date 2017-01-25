@@ -1,42 +1,28 @@
-def executeMSBuild(package_type){
-    echo "** nugent.executeMSBuild::Finish **"
-	outputEnvironmentVars(package_type)
+def runCodeCoverate() {
+    echo "** coverage.runCodeCoverate::Start **"
 
-        // log Build data
-//		bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name% -git "YES"'
-         
-		// delete Artifact and Package path 
-//        bat '"%powershell%" -ExecutionPolicy ByPass -File %delete_folder% -DIRECTORY %ARTIFACT_PATH%'
-//        bat '"%powershell%" -ExecutionPolicy ByPass -File %delete_folder% -DIRECTORY %PACKAGE_PATH%'
-	
-	
-    	// Check directories if they contain something fail 
-//        bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %ARTIFACT_PATH%'
-//        bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %PACKAGE_PATH%'
+//    bat '"%powershell%" -ExecutionPolicy ByPass -File "%OC_PS%" -TEST_PATH %ARTIFACT_PATH% -TEST_PATTERN %TEST_PATTERN% -WORKSPACE %WORKSPACE%'
+//    bat '%OPENCOVER% -target:%WORKSPACE%/nunit.bat -targetargs:"%OC_ARGS%" "%OC_FILTER%" -register -targetdir:%ARTIFACT_PATH% -searchdirs:%ARTIFACT_PATH% -output:%WORKSPACE%/OpenCoverTests.xml'
+//    bat '%REPORTGENERATOR% -reports:"%WORKSPACE%/OpenCoverTests.xml" -targetdir:"Reports/opencover"'
+//    bat '%REPORTGENERATOR% -reports:"%WORKSPACE%/OpenCoverTests.xml" -targetdir:"Reports/opencoversummary" -reporttypes:XML'
+//
+//    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'Reports/opencover', reportFiles: 'index.htm', reportName: 'OpenCover Results'])
+//
+//    //Code Coverage logs to move to LogStash folder
+//    bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER_CCN%'
+//    bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER_CCO%'
+//
+//    bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER_CCR_OC%'
+//
+//
+//    bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_NUNIT% -copy_path %LOG_FOLDER_CCN%'
+//    bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_OC% -copy_path %LOG_FOLDER_CCO%'
+//    bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_OC_SUM% -copy_path %LOG_FOLDER_CCO%'
+//
+//    bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_REPORT_OC% -copy_path %LOG_FOLDER_CCR_OC%'
 
-    //Execute Nuget restore command
-//    bat '"%SLAVE_NUGET%" restore "%SOLUTION_PATH%"'
+    echo "** coverage.runCodeCoverate::Finish **"
 
-        //Execute MSBUILD
-//        if (package_type.toUpperCase() == "NUGET") {
-//            bat '"%SLAVE_MSBUILD%" "%SOLUTION_PATH%" /p:Configuration=%BUILD_TYPE% /t:Clean,Build /fl /flp:logfile=build.log'
-//        } else {
-//            if ("${env.MS_TEST}" == "") {
-//                bat '"%SLAVE_MSBUILD%" "%SOLUTION_PATH%" /p:Configuration=%BUILD_TYPE%;OutPutPath=%ARTIFACT_PATH% /t:Clean,Build /fl /flp:logfile=build.log'
-//            } else {
-//                bat '"%SLAVE_MSBUILD%" "%SOLUTION_PATH%" /p:Configuration=%BUILD_TYPE%;OutPutPath=%ARTIFACT_PATH% /t:Clean,Build /fl /flp:logfile=build.log'
-//               //bat '"%SLAVE_MSBUILD%" %WORKSPACE%/%MS_TEST% /p:Configuration=%BUILD_TYPE% /t:Clean,Build /fl /flp:logfile=build.log'
-//            }
-//        }
-    echo "** nugent.executeMSBuild::Finish **"
 }
 
-def outputEnvironmentVars(package_type){
-   echo "** nugent.executeMSBuild::Start **"
-	echo "SLAVE_NUGET = %SLAVE_NUGET%"
-	echo "SOLUTION_PATH = %SOLUTION_PATH%"
-	echo "SLAVE_MSBUILD = %SLAVE_MSBUILD%"
-	echo "BUILD_TYPE = %BUILD_TYPE%"
-	echo "Package_type = " + package_type
-}
- return this
+return this
