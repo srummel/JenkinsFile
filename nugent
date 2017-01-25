@@ -6,7 +6,7 @@
 def executeMSBuild(package_type){
     //Execute Nuget command
     echo "** nugent.executeMSBuild::Start **"
-//	echo "SLAVE_NUGET = %SLAVE_NUGET%"
+	echo "SLAVE_NUGET = %SLAVE_NUGET%"
 //	echo "SOLUTION_PATH = %SOLUTION_PATH%"
 //	echo "SLAVE_MSBUILD = %SLAVE_MSBUILD%"
 //	echo "BUILD_TYPE = %BUILD_TYPE%"
