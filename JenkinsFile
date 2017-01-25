@@ -10,10 +10,7 @@ node {
     // Load the file 'pipelineTrace.groovy' from the current directory, into a variable called "externalMethod".
     def trace = load("pipelineTrace.groovy")
 
-	bat returnStdout: true, script: 'env > env.txt'
-    readFile('env.txt').split("\r?\n").each {
-      println it
-    }
+	def env = new ConfigSlurper().parse(new File('env.txt').toURL())
 	
     trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Pipeline')
  
