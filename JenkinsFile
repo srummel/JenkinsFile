@@ -10,7 +10,11 @@ node {
     // Load the file 'pipelineTrace.groovy' from the current directory, into a variable called "externalMethod".
     def trace = load("pipelineTrace.groovy")
 
-	printParams()
+	sh 'env > env.txt'
+    readFile('env.txt').split("\r?\n").each {
+      println it
+    }
+//	printParams()
 	
     trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Pipeline')
  
@@ -72,9 +76,4 @@ node {
 def clean(){
     bat '"%powershell%" -ExecutionPolicy ByPass -File %delete_folder% -DIRECTORY %ARTIFACT_PATH%'
     bat '"%powershell%" -ExecutionPolicy ByPass -File %delete_folder% -DIRECTORY %PACKAGE_PATH%'
-}
-
-@NonCPS
-def printParams() {
-  env.getEnvironment().each { name, value -> println "Name: $name -> Value $value" }
 }
