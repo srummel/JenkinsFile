@@ -1,4 +1,8 @@
-  
+{->   
+  node('master') {
+    executeMSBuild()
+  }
+}   
 def executeMSBuild(package_type){
     //Execute Nuget command
     echo "** nugent.executeMSBuild::Start **"
