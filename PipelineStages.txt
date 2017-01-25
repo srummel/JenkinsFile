@@ -1,11 +1,15 @@
 //"Build" stage for Jenkins pipeline
 ## Groovy 
 ## 
+bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "Begin Pipeline" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
+bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER%'
 
 stage ("Build") {
     try{
         echo "${env.UUID}"
 
+		bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name% -git "YES"'
+        bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "Begin Build" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
         bat '"%powershell%" -ExecutionPolicy ByPass -File %delete_folder% -DIRECTORY %ARTIFACT_PATH%'
         bat '"%powershell%" -ExecutionPolicy ByPass -File %delete_folder% -DIRECTORY %PACKAGE_PATH%'
         bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %ARTIFACT_PATH%'

@@ -1,8 +1,10 @@
-node {
+node('master') {
     checkout scm
     // Load the file 'pipelineTrace.groovy' from the current directory, into a variable called "externalMethod".
     def trace = load("pipelineTrace.groovy")
-    def config = load("loadConfig.groovy")
+    
+    
+	def config = load("loadConfig.groovy")
 
     def WORKSPACE = "${env.WORKSPACE}"
 
@@ -15,7 +17,9 @@ node {
     stage('Build') {
         trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
         try {
-            //  IMPLEMENT THIS
+          def nugent = readFile 'nugent'
+          nugent.executeMSBuild()
+		  
         } catch(e){
         }
         finally {
