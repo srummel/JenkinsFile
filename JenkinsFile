@@ -15,7 +15,7 @@ node {
     stage('Build') {
         trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
 		
-		## IMPLEMENT THIS
+		//  IMPLEMENT THIS
 		
         trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
     }
@@ -23,7 +23,7 @@ node {
     stage('Code Coverage') {
         trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Coverage')
 		
-		## IMPLEMENT THIS
+		//  IMPLEMENT THIS
 		
         trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Coverage')
     }
@@ -31,7 +31,7 @@ node {
     stage('Code Analysis') {
         trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Analysis')
 		
-		## IMPLEMENT THIS
+		//  IMPLEMENT THIS
 		
         trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Analysis')
     }
@@ -39,7 +39,7 @@ node {
     stage('Install Package') {
         trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Install Package')
 		
-		## IMPLEMENT THIS
+		//  IMPLEMENT THIS
 		
         trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Install Package')
     }
@@ -47,7 +47,7 @@ node {
     stage('Artifact Upload') {
         trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Artifact Upload')
 		
-		## IMPLEMENT THIS
+		//  IMPLEMENT THIS
 		
         trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Artifact Upload')
     }
