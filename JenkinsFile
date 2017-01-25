@@ -15,18 +15,27 @@ node('master') {
 
 
     stage('Build') {
-        trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
+       trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
 
-        def nugent = load("_nugent")
-        nugent.executeMSBuild('${Package_type}')
+		try{
+          
+		  def nugent = load("_nugent")
+          nugent.executeMSBuild('${Package_type}')
 
-		trace.endStage(WORKSPACE, "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
+          def logstash = load("_logstash")
+		  logstash.copyLogFiles()
+
+		catch(err){
+		   throw err
+		}
+		finally{
+		  trace.endStage(WORKSPACE, "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
+		}
     }
 
     stage('Code Coverage') {
         trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Coverage')
 
-        def nugent = load("_nugent")
         nugent.executeMSBuild('${Package_type}')
 
         trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Coverage')

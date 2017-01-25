@@ -3,33 +3,22 @@
     executeMSBuild()
   }
 }   
-def executeMSBuild(package_type){
-    //Execute Nuget command
- 	
-	outputEnvironmentVars(package_type)
-	
-//    bat '"%SLAVE_NUGET%" restore "%SOLUTION_PATH%"'
+def copyLogFiles(){
+    echo "** logstash.copyLogFiles::Start **"
 
-        //Execute MSBUILD
-//        if (package_type.toUpperCase() == "NUGET") {
-//            bat '"%SLAVE_MSBUILD%" "%SOLUTION_PATH%" /p:Configuration=%BUILD_TYPE% /t:Clean,Build /fl /flp:logfile=build.log'
-//        } else {
-//            if ("${env.MS_TEST}" == "") {
-//                bat '"%SLAVE_MSBUILD%" "%SOLUTION_PATH%" /p:Configuration=%BUILD_TYPE%;OutPutPath=%ARTIFACT_PATH% /t:Clean,Build /fl /flp:logfile=build.log'
-//            } else {
-//                bat '"%SLAVE_MSBUILD%" "%SOLUTION_PATH%" /p:Configuration=%BUILD_TYPE%;OutPutPath=%ARTIFACT_PATH% /t:Clean,Build /fl /flp:logfile=build.log'
-//               //bat '"%SLAVE_MSBUILD%" %WORKSPACE%/%MS_TEST% /p:Configuration=%BUILD_TYPE% /t:Clean,Build /fl /flp:logfile=build.log'
-//            }
-//        }
-    echo "** nugent.executeMSBuild::Finish **"
+
+//    bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER_BLD%'
+//    bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_BUILD% -copy_path %LOG_FOLDER_BLD%'
+
+	
+    echo "** logstash.copyLogFiles::Finish **"
 }
 
 def outputEnvironmentVars(package_type){
    echo "** nugent.executeMSBuild::Start **"
-	echo "SLAVE_NUGET = %SLAVE_NUGET%"
-	echo "SOLUTION_PATH = %SOLUTION_PATH%"
-	echo "SLAVE_MSBUILD = %SLAVE_MSBUILD%"
-	echo "BUILD_TYPE = %BUILD_TYPE%"
-	echo "Package_type = " + package_type
+	echo "copy_logs = %copy_logs%"
+	echo "SRC_BUILD = %SRC_BUILD%"
+	echo "LOG_FOLDER_BLD = %LOG_FOLDER_BLD%"
 }
- return this
+
+return this

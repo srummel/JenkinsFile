@@ -1,70 +1,28 @@
 //"Build" stage for Jenkins pipeline
 ## Groovy 
 ## 
-bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "Begin Pipeline" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
 bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER%'
 
-stage ("Build") {
-    try{
-        echo "${env.UUID}"
-
-		bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name% -git "YES"'
-        bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "Begin Build" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
-        bat '"%powershell%" -ExecutionPolicy ByPass -File %delete_folder% -DIRECTORY %ARTIFACT_PATH%'
-        bat '"%powershell%" -ExecutionPolicy ByPass -File %delete_folder% -DIRECTORY %PACKAGE_PATH%'
-        bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %ARTIFACT_PATH%'
-        bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %PACKAGE_PATH%'
-
-        //Execute Nuget command
-        bat '"%SLAVE_NUGET%" restore "%SOLUTION_PATH%"'
-
-        //Execute MSBUILD
-        if ("${Package_type}".toUpperCase() == "NUGET") {
-            bat '"%SLAVE_MSBUILD%" "%SOLUTION_PATH%" /p:Configuration=%BUILD_TYPE% /t:Clean,Build /fl /flp:logfile=build.log'
-        } else {
-            if ("${env.MS_TEST}" == "") {
-                bat '"%SLAVE_MSBUILD%" "%SOLUTION_PATH%" /p:Configuration=%BUILD_TYPE%;OutPutPath=%ARTIFACT_PATH% /t:Clean,Build /fl /flp:logfile=build.log'
-            } else {
-                bat '"%SLAVE_MSBUILD%" "%SOLUTION_PATH%" /p:Configuration=%BUILD_TYPE%;OutPutPath=%ARTIFACT_PATH% /t:Clean,Build /fl /flp:logfile=build.log'
-                //bat '"%SLAVE_MSBUILD%" %WORKSPACE%/%MS_TEST% /p:Configuration=%BUILD_TYPE% /t:Clean,Build /fl /flp:logfile=build.log'
-            }
-        }
-    } catch (err) {
-        bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "End Build; Failure" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
-		bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "End Pipeline; Failure" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
-        bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_LOG% -copy_path %LOG_FOLDER%'
-		bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %GIT_LOG% -copy_path %LOG_FOLDER%'
-        throw err
-    }
-    bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "End Build; Success" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
-    //Build logs to move to LogStash folder
-    bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER_BLD%'
-    bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_BUILD% -copy_path %LOG_FOLDER_BLD%'
-}
 
 //"Code Coverage" stage for Jenkins pipeline
 stage ("Code Coverage") {
     try {
         echo "${env.UUID}"
-        bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "Begin Code coverage" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
+		
         if ("${env.MS_TEST}" == "") {
             echo "No test location identified in PAC.json"
             bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "No test location identified in PAC.json" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
         } else {
             bat '"%powershell%" -ExecutionPolicy ByPass -File "%OC_PS%" -TEST_PATH %ARTIFACT_PATH% -TEST_PATTERN %TEST_PATTERN% -WORKSPACE %WORKSPACE%'
             bat '%OPENCOVER% -target:%WORKSPACE%/nunit.bat -targetargs:"%OC_ARGS%" "%OC_FILTER%" -register -targetdir:%ARTIFACT_PATH% -searchdirs:%ARTIFACT_PATH% -output:%WORKSPACE%/OpenCoverTests.xml'
-        //    bat '%REPORTGENERATOR% -reports:"%WORKSPACE%/nunit_results.xml" -targetdir:"Reports/nunit"'
             bat '%REPORTGENERATOR% -reports:"%WORKSPACE%/OpenCoverTests.xml" -targetdir:"Reports/opencover"'
 			bat '%REPORTGENERATOR% -reports:"%WORKSPACE%/OpenCoverTests.xml" -targetdir:"Reports/opencoversummary" -reporttypes:XML'
 
-        //    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'Reports/nunit', reportFiles: 'index.htm', reportName: 'NUNIT Results'])
             publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'Reports/opencover', reportFiles: 'index.htm', reportName: 'OpenCover Results'])
             //Code Coverage logs to move to LogStash folder
             bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER_CCN%'
             bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER_CCO%'
-        //  bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER_CCR%'
 
-        //    bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER_CCR_nUnit%'
             bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER_CCR_OC%'
 
 
@@ -72,9 +30,6 @@ stage ("Code Coverage") {
             bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_OC% -copy_path %LOG_FOLDER_CCO%'
 			bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_OC_SUM% -copy_path %LOG_FOLDER_CCO%'
 
-        //  bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_REPORT% -copy_path %LOG_FOLDER_CCR%'
-
-        //  bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_REPORT_nunit% -copy_path %LOG_FOLDER_CCR_nUnit%'
             bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_REPORT_OC% -copy_path %LOG_FOLDER_CCR_OC%'
 
         }
@@ -82,11 +37,11 @@ stage ("Code Coverage") {
     } catch (err) {
         bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "End Code Coverage; Failure" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
 		bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "End Pipeline; Failure" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
+
         bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_LOG% -copy_path %LOG_FOLDER%'
 		bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %GIT_LOG% -copy_path %LOG_FOLDER%'
         throw err
     }
-    bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "End Code Coverage; Success" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
 }
 
 
@@ -99,14 +54,10 @@ stage ("Code Analysis") {
             echo "No test location identified in PAC.json"
             bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "No test location identified in PAC.json" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
         } else {
-        //    bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER_CCR_FX%'
             bat '"%FXCOP_V14%" /f:"%ARTIFACT_PATH%/%FXCOP_FILTER%" /o:"%WORKSPACE%/fxcopout.xml" /ignoreinvalidtargets /verbose /gac'
-        //    bat '%REPORTGENERATOR% -reports:"%WORKSPACE%/fxcopout.xml" -targetdir:"Reports/fxcop"'
-        //    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'Reports/fxcop', reportFiles: 'index.html', reportName: 'FxCop Results'])
             //Code Analysis logs to move to LogStash folder
             bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER_CA%'
             bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_FXCOP% -copy_path %LOG_FOLDER_CA%'
-        //    bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_REPORT_FX% -copy_path %LOG_FOLDER_CCR_FX%'
         }
     } catch (err) {
         bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "End Code Analysis; Failure" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
@@ -161,7 +112,6 @@ stage ("Creating Install Package") {
 				    echo "step1"
 				    echo "ProjectGUID = ${ProjectGUID}"
 				    env.verUUID = ""
-			//	    env.verUUID = "${env.UUID}"
 					} else {
 					echo "step2"
 					echo "ProjectGUID = ${ProjectGUID}"
@@ -202,13 +152,11 @@ stage ("Creating Install Package") {
 		bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %GIT_LOG% -copy_path %LOG_FOLDER%'
         throw err
     }
-    bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "End Creating Install Package; Success" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
 }
 
 //"Artifact upload"  for Jenkins pipeline
 stage ("Artifact Upload") {
     try {
-        bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "Begin Artifact Upload" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
         switch ("${Package_type}".toUpperCase()) {
 
             case "NUGET":
@@ -236,12 +184,6 @@ stage ("Artifact Upload") {
                 bat '"%powershell%" -ExecutionPolicy ByPass -File %deploy_nexus% -UUID %UUID% -projectname %PROJECT_NAME% -groupid %MVN_NGROUPID_PROD% -pac_type %NXS_PKG% -pkg_location %PKG_LOCATION_PROD%'
                 bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "Package uploaded to PROD folder" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
                 break
-        //nexusArtifactUploader artifactId: "${env.DEV}", credentialsId: '6f4a607c-2311-4a84-b570-0841d6da7f75', file: "${env.PKG_LOCATION_DEV}", groupId: "${env.NXUS_GROUPID}", nexusUrl: "${env.NXS_URL}", nexusVersion: "${env.NXS_VERSION}", protocol: "${env.NXS_PROTOCOL}", repository: "${env.NXS_REPO}", type: "${env.NXS_PKG}", version: "${env:PKG_VERSION}"
-        //nexusArtifactUploader artifactId: "${env.TEST}", credentialsId: '6f4a607c-2311-4a84-b570-0841d6da7f75', file: "${env.PKG_LOCATION_TEST}", groupId: "${env.NXUS_GROUPID}", nexusUrl: "${env.NXS_URL}", nexusVersion: "${env.NXS_VERSION}", protocol: "${env.NXS_PROTOCOL}", repository: "${env.NXS_REPO}", type: "${env.NXS_PKG}", version: "${env:PKG_VERSION}"
-        //nexusArtifactUploader artifactId: "${env.PROJECT_NAME}", credentialsId: '6f4a607c-2311-4a84-b570-0841d6da7f75', file: "${env.PKG_LOCATION_TEST}", groupId: "${env.NXUS_GROUPID}", nexusUrl: "${env.NXS_URL}", nexusVersion: "${env.NXS_VERSION}", protocol: "${env.NXS_PROTOCOL}", repository: "${env.NXS_REPO}", type: "${env.NXS_PKG}", version: "${env:PKG_VERSION}"
-        //nexusArtifactUploader artifactId: "${env.PROD}", credentialsId: '6f4a607c-2311-4a84-b570-0841d6da7f75', file: "${env.PKG_LOCATION_PROD}", groupId: "${env.NXUS_GROUPID}", nexusUrl: "${env.NXS_URL}", nexusVersion: "${env.NXS_VERSION}", protocol: "${env.NXS_PROTOCOL}", repository: "${env.NXS_REPO}", type: "${env.NXS_PKG}", version: "${env:PKG_VERSION}"
-        // nexusArtifactUploader artifactId: "${env.PROJECT_NAME}", credentialsId: '6f4a607c-2311-4a84-b570-0841d6da7f75', file: "${env.PKG_LOCATION}", groupId: "${env.NXS_GROUPID}", nexusUrl: "${env.NXS_URL}", nexusVersion: "${env.NXS_VERSION}", protocol: "${env.NXS_PROTOCOL}", repository: "${env.NXS_REPO}", type: "${env.NXS_PKG}", version: "${env:PKG_VERSION}"
-        // bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER_AU%'
         }
     } catch (err) {
         //currentBuild.result = 'FAILURE'
@@ -259,7 +201,6 @@ stage ("Deployment to DEV environment") {
     try {
         echo "${env.UUID}"
         bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "Begin Deployment to DEV" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
-        //echo "Deploying files via puppet"
         bat '"%powershell%" -ExecutionPolicy ByPass -File %artifact_promote%  -pac_type %NXS_PKG% -projectname %PROJECT_NAME% -WORKSPACE %WORKSPACE% -region "DEV" -UUID %UUID% -groupid %MVN_NGROUPID_DEV%'
 
     } catch (err) {
@@ -269,7 +210,6 @@ stage ("Deployment to DEV environment") {
 		bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %GIT_LOG% -copy_path %LOG_FOLDER%'
         throw err
     }
-    bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "End Deployment to DEV; Success" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
 }
 
 //"Deployment" for Jenkins pipeline
@@ -293,11 +233,9 @@ stage ("Deployment to TEST environment") {
 if ("${Acceptance_test}".toUpperCase() == "YES")
 {
 stage ("Automated Acceptance Testing") {
-//if ("${ProjectName}".toUpperCase() == "AUTHORIZATIONS") {
    try {
       echo "${env.UUID}"
        bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/logfile.ps1"% -comment "Begin Automated Acceptance Testing" -WORKSPACE %WORKSPACE% -buildnumber %build_number% -branchname %branch_name%'
-	// bat '"%SLAVE_MSBUILD%" "%WORKSPACE%/SpecFlow.V%APP_VERSION%.%PROJECT_NAME%.Tests/SpecFlow.V%APP_VERSION%.%PROJECT_NAME%.Tests.sln" /p:Configuration=Debug;OutPutPath=%WORKSPACE%/SpecflowArtifacts /t:Clean,Build /fl /flp:logfile=Specflowbuild.log'
        bat '"%SLAVE_MSBUILD%" "%WORKSPACE%/SVM.SpecFlow.Tests/SpecFlow.V%APP_VERSION%.%PROJECT_NAME%.Tests.sln" /p:Configuration=Debug;OutPutPath=%WORKSPACE%/SpecflowArtifacts /t:Clean,Build /fl /flp:logfile=Specflowbuild.log'
        bat '"%powershell%" -ExecutionPolicy ByPass -File "%SF_PS%" -WORKSPACE %WORKSPACE% -ProjName %PROJECT_NAME%  -VERSION %APP_VERSION%'
        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'SpecFlow', reportFiles: '*.html', reportName: 'Specflow report'])
@@ -323,8 +261,4 @@ bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %GIT_LO
 
         stage ("Clean up workspace") {
        bat '"%powershell%" -ExecutionPolicy ByPass -File %delete_folder% -DIRECTORY %DELETE_FOLDER_WS%'
-            // deleteDir()
-         //   dir('%WORKSPACE%') {
-          //      deleteDir()
-         //   }
        }
