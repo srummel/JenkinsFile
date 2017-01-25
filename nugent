@@ -10,7 +10,7 @@ def executeMSBuild(package_type){
 //	echo "SOLUTION_PATH = %SOLUTION_PATH%"
 //	echo "SLAVE_MSBUILD = %SLAVE_MSBUILD%"
 //	echo "BUILD_TYPE = %BUILD_TYPE%"
-//	echo "Package_type = " + package_type
+	echo "Package_type = " + package_type
 	
 	
     //    bat '"%SLAVE_NUGET%" restore "%SOLUTION_PATH%"'
