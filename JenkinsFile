@@ -10,7 +10,7 @@ node {
     // Load the file 'pipelineTrace.groovy' from the current directory, into a variable called "externalMethod".
     def trace = load("pipelineTrace.groovy")
 
-	def env = new ConfigSlurper().parse(new File('${env.WORKSPACE}/env.txt').toURL())
+	def env = new ConfigSlurper().parse(new File("${env.WORKSPACE}/env.txt").toURL())
 	
 	
 	
