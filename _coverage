@@ -1,5 +1,5 @@
 def runCodeCoverate() {
-    echo "** coverage.runCodeCoverate::Start **"
+    echo "** coverage.runCodeCoverage::Start **"
 
 //    bat '"%powershell%" -ExecutionPolicy ByPass -File "%OC_PS%" -TEST_PATH %ARTIFACT_PATH% -TEST_PATTERN %TEST_PATTERN% -WORKSPACE %WORKSPACE%'
 //    bat '%OPENCOVER% -target:%WORKSPACE%/nunit.bat -targetargs:"%OC_ARGS%" "%OC_FILTER%" -register -targetdir:%ARTIFACT_PATH% -searchdirs:%ARTIFACT_PATH% -output:%WORKSPACE%/OpenCoverTests.xml'
@@ -21,7 +21,7 @@ def runCodeCoverate() {
 //
 //    bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_REPORT_OC% -copy_path %LOG_FOLDER_CCR_OC%'
 
-    echo "** coverage.runCodeCoverate::Finish **"
+    echo "** coverage.runCodeCoverage::Finish **"
 
 }
 

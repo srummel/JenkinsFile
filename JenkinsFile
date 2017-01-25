@@ -36,6 +36,7 @@ node('master') {
     stage('Code Coverage') {
         trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Coverage')
 
+    try {
        if ("${env.MS_TEST}" == "") {
 	   def message = "No test location identified in PAC.json"
           echo ${message}
@@ -44,18 +45,23 @@ node('master') {
           def coverage = load("_coverage")
           coverage.runCodeCoverate()
         }
+   } catch (err) {
+        bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %SRC_LOG% -copy_path %LOG_FOLDER%'
+		bat '"%powershell%" -ExecutionPolicy ByPass -File %copy_logs% -copy_file %GIT_LOG% -copy_path %LOG_FOLDER%'
+        throw err
+    }
 
         trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Coverage')
     }
 
-//    stage('Code Analysis') {
-//        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Analysis')
-//
-//        //  IMPLEMENT THIS
-//
-//        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Analysis')
-//    }
-//
+    stage('Code Analysis') {
+        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Analysis')
+
+        //  IMPLEMENT THIS
+
+        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Code Analysis')
+    }
+
 //    stage('Install Package') {
 //        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Install Package')
 //
