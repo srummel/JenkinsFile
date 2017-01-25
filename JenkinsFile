@@ -16,14 +16,19 @@ node('master') {
 
     stage('Build') {
         trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
+
         try {
+        
           def nugent = load("nugent")
           nugent.executeMSBuild('${Package_type}')
-		  
-        } catch(e){
-        }
+        
+		} catch(e){
+          
+		  echo "ArtifactFolder== ${myEnv.ArtifactFolder}"           
+        
+		}
         finally {
-            trace.endStage(WORKSPACE, "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
+          trace.endStage(WORKSPACE, "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
         }
     }
 
