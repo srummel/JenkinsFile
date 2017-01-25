@@ -68,7 +68,7 @@ node {
 @NonCPS
 def loadConfig(){
 //	new ConfigSlurper().parse(new File(WORKSPACE + "/env.txt").toURL())
-final ConfigObject parser = new ConfigSlurper().parse(file.toURI().toURL());
+final ConfigObject parser = new ConfigSlurper().parse(new File(WORKSPACE + "/env.txt").toURI().toURL());
 parser
 }
  
