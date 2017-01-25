@@ -105,7 +105,7 @@ node('master') {
         trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Artifact Upload')
 
         def artifactUpload = load("_artifactUpload")
-        artifactUpload.runCodeAnalysis()
+        artifactUpload.runArtifactUpload()
 
         trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Artifact Upload')
     }
