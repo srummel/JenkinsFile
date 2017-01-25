@@ -18,7 +18,7 @@ node('master') {
         trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'BUILD')
         try {
           def nugent = load("nugent")
-          nugent.executeMSBuild()
+          nugent.executeMSBuild(${Package_type})
 		  
         } catch(e){
         }
