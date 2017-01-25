@@ -5,8 +5,8 @@ node {
 
     def WORKSPACE = "${env.WORKSPACE}"
 
-    def env = loadConfig()
-	
+    def myEnv = loadConfig()
+	echo "ArtifactFolder== ${myEnv.ArtifactFolder}"           
 
     trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Pipeline')
 
@@ -67,7 +67,9 @@ node {
 
 @NonCPS
 def loadConfig(){
-	new ConfigSlurper().parse(new File(WORKSPACE + "/env.txt").toURL())
+//	new ConfigSlurper().parse(new File(WORKSPACE + "/env.txt").toURL())
+final ConfigObject parser = new ConfigSlurper().parse(file.toURI().toURL());
+parser
 }
  
  
