@@ -1,12 +1,3 @@
-// Methods in this file will end up as object methods on the object that load returns.
-import java.io.File 
-import java.util.Date
-
-
-
-
-Class Tracer{
-
 
 def startStage(location, buildNumber, buildEnvironment, stage){
     echo "** externalMethod.startStage::Start **"
@@ -17,8 +8,6 @@ def startStage(location, buildNumber, buildEnvironment, stage){
 	
     echo "** externalMethod.startStage::Finish **"
 }
- 
-//   return this;
+    return this;
 
     echo "** externalMethod.updatePacLog::Finish **"
-}
