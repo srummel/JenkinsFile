@@ -24,7 +24,7 @@ def executeMSBuild(package_type){
     echo "** nugent.executeMSBuild::Finish **"
 }
 
-def outputEnvironmentVars(){
+def outputEnvironmentVars(package_type){
    echo "** nugent.executeMSBuild::Start **"
 	echo "SLAVE_NUGET = %SLAVE_NUGET%"
 	echo "SOLUTION_PATH = %SOLUTION_PATH%"
