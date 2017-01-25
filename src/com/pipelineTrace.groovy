@@ -1,13 +1,8 @@
-package com.servicemaster
-
-// Methods in this file will end up as object methods on the object that load returns.
-import java.io.File 
-import java.util.Date
 
 
 
 
-class Tracer{
+
 
 
 def startStage(location, buildNumber, buildEnvironment, stage){
@@ -20,7 +15,6 @@ def startStage(location, buildNumber, buildEnvironment, stage){
     echo "** externalMethod.startStage::Finish **"
 }
  
-//   return this;
+   return this;
 
     echo "** externalMethod.updatePacLog::Finish **"
-}
