@@ -2,10 +2,11 @@ node {
     checkout scm
     // Load the file 'pipelineTrace.groovy' from the current directory, into a variable called "externalMethod".
     def trace = load("pipelineTrace.groovy")
+    def config = load("loadConfig.groovy")
 
     def WORKSPACE = "${env.WORKSPACE}"
 
-    def myEnv = loadConfig()
+    def myEnv = config.loadConfig()
 	echo "ArtifactFolder== ${myEnv.ArtifactFolder}"           
 
     trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Pipeline')
@@ -64,18 +65,6 @@ node {
 //        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to TEST')
 //    }
 }
-
-@NonCPS
-def loadConfig(){
-//	new ConfigSlurper().parse(new File(WORKSPACE + "/env.txt").toURL())
-//final ConfigObject parser = new ConfigSlurper().parse(new File(WORKSPACE + "/env.txt").toURI().toURL());
-//parser
-
-new ConfigSlurper().parse(new File(WORKSPACE + "/env.txt").toURI().toURL());
-
-}
- 
- 
  
 def clean(){
     bat '"%powershell%" -ExecutionPolicy ByPass -File %delete_folder% -DIRECTORY %ARTIFACT_PATH%'
