@@ -1,8 +1,8 @@
 node('master') {
     checkout scm
-    // Load the file 'pipelineTrace.groovy' from the current directory, into a variable called "externalMethod".
+    // Load the file 'pipelineTrace.groovy' from the current directory, into a variable 
     def trace = load("pipelineTrace.groovy")
-//    def logging = load("pipelineLog.groovy")
+    def logging = load("pipelineTrace.groovy")
     
     
 //	def config = load("loadConfig.groovy")
