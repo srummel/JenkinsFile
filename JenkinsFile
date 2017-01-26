@@ -1,7 +1,7 @@
 node('master') {
     checkout scm
     // Load the file 'pipelineTrace.groovy' from the current directory, into a variable called "externalMethod".
-    def trace = load("pipelineTrace.groovy")
+    def trace = load 'pipelineTrace.groovy'
     def logs = load("logFile.groovy")
 
 //	def config = load("loadConfig.groovy")
@@ -112,11 +112,25 @@ node('master') {
 
     stage('Deployment to DEV') {
         trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to DEV')
+
+    try {
+        echo "${env.UUID}"
+//        bat '"%powershell%" -ExecutionPolicy ByPass -File %artifact_promote%  -pac_type %NXS_PKG% -projectname %PROJECT_NAME% -WORKSPACE %WORKSPACE% -region "DEV" -UUID %UUID% -groupid %MVN_NGROUPID_DEV%'
+
+    } catch (err) {
+            logs.copyLogFile('%LOG_FOLDER%', '%SRC_LOG%')
+            logs.copyLogFile('%LOG_FOLDER%', '%GIT_LOG%')
+        throw err
+    }
+
         trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to DEV')
     }
 
     stage('Deployment to TEST') {
         trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to TEST')
+
+//        bat '"%powershell%" -ExecutionPolicy ByPass -File %artifact_promote%  -pac_type %NXS_PKG% -projectname %PROJECT_NAME% -WORKSPACE %WORKSPACE% -region "TEST" -UUID %UUID% -groupid %MVN_NGROUPID_TEST%'
+
         trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to TEST')
     }
 }

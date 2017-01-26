@@ -1,0 +1,20 @@
+cmd=C:\Windows\System32
+FxCop=D:\Microsoft-Fxcop-10.0\FxCopCmd.exe
+FXCOP_V14=D:\tools\fxcop\FxCop_v14\FxCopCmd.exe
+GIT=C:\Program Files\Git\bin\git.exe;D:\tools\Git\bin\git.exe
+gradle=/usr/local/gradle/gradle-3.2/bin/
+
+ng=C:\Users\Public\Roaming\npm\ng
+NUGET_35RC1=D:/Tools/Nuget/Nuget350rc1/nuget.exe
+NUGET_CREDENTIALPROVIDERS_PATH=D:\tools\CredentialProviderBundle
+NUGET_LATEST=D:/tools/nuget/nuget344/nuget.exe
+opencover=D:\opencover.4.6.519\OpenCover.Console.exe
+path=D:\Program Files\curl-7.32.0-win64-nossl;C:\Program Files\Java\jdk1.7.0_80\bin;C:\Program Files\apache-maven-3.3.9\bin;C:\Windows\System32;C:\Program Files\Git\bin;D:\bzip2-1.0.5-bin\bin;D:\zip-3.0-bin\bin
+powershell=C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+REPORTGENERATOR=D:\ReportGenerator.2.4.4.0\tools\reportgenerator.exe
+SLAVE_JENKINS_HOME=D:/Jenkins
+SLAVE_JENKINS_WORKSPACE=D:/Jenkins/workspace
+SLAVE_MSBUILD=C:/Program Files (x86)/MSBuild/14.0/Bin/MSBuild.exe
+SLAVE_NUGET=D:/tools/nuget/nuget344/nuget.exe
+TFS=D:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\tf.exe
+WIX_HOME=C:/Program Files (x86)/WiX Toolset v3.10/bin
