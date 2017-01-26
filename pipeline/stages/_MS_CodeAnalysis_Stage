@@ -17,12 +17,12 @@ stage('Code Analysis') {
 
                 //Code Analysis logs to move to LogStash folder
 //            bat '"%powershell%" -ExecutionPolicy ByPass -File "${env.WORKSPACE}/scripts/checkDirectory.ps1" -DIRECTORY %LOG_FOLDER_CA%'
-                logs.copyLogFile('%LOG_FOLDER_CA%', '%SRC_FXCOP%')
+//                logs.copyLogFile('%LOG_FOLDER_CA%', '%SRC_FXCOP%')
             }
         } catch (err) {
-            logs.copyLogFile('%LOG_FOLDER_CA%', '%SRC_FXCOP%')
-            logs.copyLogFile('%LOG_FOLDER%', '%SRC_LOG%')
-            logs.copyLogFile('%LOG_FOLDER%', '%GIT_LOG%')
+//            logs.copyLogFile('%LOG_FOLDER_CA%', '%SRC_FXCOP%')
+//            logs.copyLogFile('%LOG_FOLDER%', '%SRC_LOG%')
+//            logs.copyLogFile('%LOG_FOLDER%', '%GIT_LOG%')
             throw err
         }
 
