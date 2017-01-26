@@ -1,6 +1,6 @@
 node('master') {
 
-    load '_Analysis'
+   def temp =  load 'TEST'
 
 
 

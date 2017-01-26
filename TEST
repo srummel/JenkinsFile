@@ -1,0 +1,6 @@
+stage('TESTSETSETET') {
+
+echo "######### WE ARE IN CODE ANALYSIS #########"
+
+
+}
