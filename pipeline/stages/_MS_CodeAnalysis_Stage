@@ -1,7 +1,7 @@
 stage('Code Analysis') {
 //  def trace = load '${env.WORKSPACE}/pipelineTrace.groovy'
 //  def logs = load '${env.WORKSPACE}/logFile.groovy'
-
+echo "######### WE ARE IN CODE ANALYSIS #########"
   
 //  trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Analysis')
 
