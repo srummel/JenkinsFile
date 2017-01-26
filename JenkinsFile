@@ -13,8 +13,8 @@ node('master') {
 
     trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Pipeline')
 
-    def msBuild = load '_MS_Build'
-    def msCoverage = load '_MS_Coverage'
+    def msBuild = load 'pipeline/stages/_MS_Build_Stage'
+    def msCoverage = load '_MS_Coverage_Stage'
 
 
     stage('Code Analysis') {
