@@ -11,8 +11,8 @@ node('master') {
    def trace = load 'pipelineTrace.groovy'
     trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Pipeline')
 
-    load 'pipeline/stages/_MS_Build_Stage'
-    load 'pipeline/stages/_MS_Coverage_Stage'
+//    load 'pipeline/stages/_MS_Build_Stage'
+//    load 'pipeline/stages/_MS_Coverage_Stage'
     load 'pipeline/stages/_MS_CodeAnalysis_Stage'
 //    load 'pipeline/stages/_MS_Install_Stage'
 //    load 'pipeline/stages/_MS_ArtifactUpload_Stage'
