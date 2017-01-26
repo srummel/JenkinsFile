@@ -1,10 +1,9 @@
 node('master') {
 
-
-echo "######### ARE WE SHOWING UP ?????? #########"
-
+    load 'pipeline/stages/_MS_CodeAnalysis_Stage'
 
 
-//    load 'pipeline/stages/_MS_CodeAnalysis_Stage'
+
+	
 }
 
