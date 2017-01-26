@@ -1,6 +1,6 @@
 node('master') {
 
-   def temp =  load 'PipelineLog.groovy'
+   def temp =  load 'TEST.jenkins'
 
 
 
