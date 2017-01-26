@@ -1,6 +1,6 @@
 node('master') {
 
-    load '_MS_CodeAnalysis_Stage'
+    load '_Analysis'
 
 
 
