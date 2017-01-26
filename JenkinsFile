@@ -14,26 +14,8 @@ node('master') {
     trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Pipeline')
 
     def msBuild = load '_MS_Build'
+    def msCoverage = load '_MS_Coverage'
 
-    stage('Code Coverage') {
-        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Coverage')
-        try {
-            if ("${env.MS_TEST}" == "") {
-                def message = "No test location identified in PAC.json"
-                echo $ { message }
-                trace.output("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", "${message}")
-            } else {
-                def coverage = load("_codeCoverage")
-                coverage.runCodeCoverage()
-            }
-        } catch (err) {
-            logs.copyLogFile('%LOG_FOLDER%', '%SRC_LOG%')
-            logs.copyLogFile('%LOG_FOLDER%', '%GIT_LOG%')
-            throw err
-        }
-
-        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Coverage')
-    }
 
     stage('Code Analysis') {
         trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Analysis')
