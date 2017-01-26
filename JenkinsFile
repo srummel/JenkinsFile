@@ -3,13 +3,13 @@ node('master') {
 
 //    def logs = load 'logFile.groovy'
 
-    def WORKSPACE = "${env.WORKSPACE}"
+//    def WORKSPACE = "${env.WORKSPACE}"
 
 //    def myEnv = config.loadConfig()
 //	echo "ArtifactFolder== ${myEnv.ArtifactFolder}"           
 
-   def trace = load 'pipelineTrace.groovy'
-    trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Pipeline')
+//   def trace = load 'pipelineTrace.groovy'
+//    trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Pipeline')
 
 //    load 'pipeline/stages/_MS_Build_Stage'
 //    load 'pipeline/stages/_MS_Coverage_Stage'
@@ -19,7 +19,7 @@ node('master') {
 //    load 'pipeline/stages/_MS_DeployToDev_Stage'
 //    load 'pipeline/stages/_MS_DeployToTest_Stage'
 
-  trace.endStage(WORKSPACE, "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Pipeline')
+//  trace.endStage(WORKSPACE, "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Pipeline')
 
 }
 
