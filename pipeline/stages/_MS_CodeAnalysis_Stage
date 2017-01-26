@@ -1,6 +1,6 @@
 stage('Code Analysis') {
-  def trace = load 'pipelineTrace.groovy'
-  def logs = load 'logFile.groovy'
+  def trace = load '${env.WORKSPACE}/pipelineTrace.groovy'
+  def logs = load '${env.WORKSPACE}/logFile.groovy'
 
   
 //  trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Analysis')
