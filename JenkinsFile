@@ -15,9 +15,6 @@ node('master') {
 
     def msBuild = load '_MS_Build'
 
-	
-    def nugent = load("_nugent")
-
     stage('Code Coverage') {
         trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Coverage')
         try {

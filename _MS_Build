@@ -5,6 +5,7 @@ stage('Build') {
 
   try {
 
+    def nugent = load("_nugent")
     nugent.executeMSBuild('${Package_type}')
 
     def logstash = load("_logstash")
