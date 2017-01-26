@@ -1,8 +1,8 @@
 node('master') {
-    checkout scm
+//    checkout scm
 
-    def trace = load 'pipelineTrace.groovy'
-    def logs = load 'logFile.groovy'
+//   def trace = load 'pipelineTrace.groovy'
+//    def logs = load 'logFile.groovy'
 
     def WORKSPACE = "${env.WORKSPACE}"
 
