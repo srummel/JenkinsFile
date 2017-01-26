@@ -1,0 +1,18 @@
+stage('Build') {
+  trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'BUILD')
+
+  try {
+
+    nugent.executeMSBuild('${Package_type}')
+
+    def logstash = load("_logstash")
+    logstash.copyLogFiles()
+  }
+  catch (err) {
+    throw err
+  }
+  finally {
+    trace.endStage(WORKSPACE, "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'BUILD')
+  }
+}()
+

@@ -13,25 +13,10 @@ node('master') {
 
     trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Pipeline')
 
+    def msBuild = load '_MS_Build'
+
+	
     def nugent = load("_nugent")
-
-    stage('Build') {
-        trace.startStage(WORKSPACE, "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'BUILD')
-
-        try {
-
-            nugent.executeMSBuild('${Package_type}')
-
-            def logstash = load("_logstash")
-            logstash.copyLogFiles()
-        }
-        catch (err) {
-            throw err
-        }
-        finally {
-            trace.endStage(WORKSPACE, "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'BUILD')
-        }
-    }
 
     stage('Code Coverage') {
         trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Coverage')
@@ -133,7 +118,7 @@ node('master') {
 
         trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to TEST')
     }
-}()
+}
 
 def clean() {
     bat '"%powershell%" -ExecutionPolicy ByPass -File %delete_folder% -DIRECTORY %ARTIFACT_PATH%'
