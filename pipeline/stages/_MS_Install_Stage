@@ -1,6 +1,6 @@
     stage('Install Package') {
   def trace = load 'pipelineTrace.groovy'
-        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Install Package')
+//        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Install Package')
 
     try {
         echo "${env.UUID}"
@@ -17,6 +17,6 @@
         throw err
     }
 
-        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Install Package')
+//        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Install Package')
     }
 
