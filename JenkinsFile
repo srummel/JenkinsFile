@@ -1,6 +1,6 @@
 node('master') {
 
-    load 'pipeline/stages/_MS_CodeAnalysis_Stage'
+    load '_MS_CodeAnalysis_Stage'
 
 
 
