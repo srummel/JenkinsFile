@@ -22,7 +22,7 @@ node('master') {
         trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Install Package')
 
     try {
-        echo "${env.UUID}"W
+        echo "${env.UUID}"
 
         def analysis = load("_installArtifact")
         analysis.installArtifact()
