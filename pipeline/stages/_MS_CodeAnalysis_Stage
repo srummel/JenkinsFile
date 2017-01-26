@@ -1,5 +1,6 @@
 stage('Code Analysis') {
   def trace = load 'pipelineTrace.groovy'
+  def logs = load 'logFile.groovy'
 
   
 //  trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Analysis')
@@ -19,7 +20,6 @@ stage('Code Analysis') {
                 logs.copyLogFile('%LOG_FOLDER_CA%', '%SRC_FXCOP%')
             }
         } catch (err) {
-		def logs = load 'logFile.groovy'
             logs.copyLogFile('%LOG_FOLDER_CA%', '%SRC_FXCOP%')
             logs.copyLogFile('%LOG_FOLDER%', '%SRC_LOG%')
             logs.copyLogFile('%LOG_FOLDER%', '%GIT_LOG%')
