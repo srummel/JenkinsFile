@@ -11,6 +11,7 @@
                 coverage.runCodeCoverage()
             }
         } catch (err) {
+		def logs = load 'logFile.groovy'
             logs.copyLogFile('%LOG_FOLDER%', '%SRC_LOG%')
             logs.copyLogFile('%LOG_FOLDER%', '%GIT_LOG%')
             throw err

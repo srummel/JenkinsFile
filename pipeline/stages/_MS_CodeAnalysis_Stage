@@ -1,13 +1,15 @@
-    stage('Code Analysis') {
-     def trace = load 'pipelineTrace.groovy'
-       trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Analysis')
+stage('Code Analysis') {
+  def trace = load 'pipelineTrace.groovy'
+
+  
+//  trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Analysis')
 
         try {
             echo "${env.UUID}"
             if ("${env.MS_TEST}" == "") {
                 def message = "No test location identified in PAC.json"
                 echo $ { message }
-                trace.output("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", "${message}")
+//                trace.output("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", "${message}")
             } else {
                 def analysis = load("_codeAnalysis")
                 analysis.runCodeAnalysis()
@@ -17,12 +19,13 @@
                 logs.copyLogFile('%LOG_FOLDER_CA%', '%SRC_FXCOP%')
             }
         } catch (err) {
+		def logs = load 'logFile.groovy'
             logs.copyLogFile('%LOG_FOLDER_CA%', '%SRC_FXCOP%')
             logs.copyLogFile('%LOG_FOLDER%', '%SRC_LOG%')
             logs.copyLogFile('%LOG_FOLDER%', '%GIT_LOG%')
             throw err
         }
 
-        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Analysis')
+//        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Analysis')
     }
 
