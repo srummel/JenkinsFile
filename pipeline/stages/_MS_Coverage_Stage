@@ -1,6 +1,6 @@
     stage('Code Coverage') {
    def trace = load 'pipelineTrace.groovy'
-       trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Coverage')
+//       trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Coverage')
         try {
             if ("${env.MS_TEST}" == "") {
                 def message = "No test location identified in PAC.json"
@@ -16,5 +16,5 @@
             throw err
         }
 
-        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Coverage')
+ //       trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Coverage')
     }

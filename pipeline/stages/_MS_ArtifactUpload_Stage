@@ -1,9 +1,9 @@
    stage('Artifact Upload') {
     def trace = load 'pipelineTrace.groovy'
-        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Artifact Upload')
+//        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Artifact Upload')
 
         def artifactUpload = load("_artifactUpload")
         artifactUpload.runArtifactUpload()
 
-        trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Artifact Upload')
+ //       trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Artifact Upload')
     }
