@@ -1,5 +1,6 @@
     stage('Code Analysis') {
-        trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Analysis')
+     def trace = load 'pipelineTrace.groovy'
+       trace.startStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}", "${env.GIT_BRANCH}", 'Code Analysis')
 
         try {
             echo "${env.UUID}"
