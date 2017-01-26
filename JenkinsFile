@@ -2,9 +2,9 @@ node('master') {
     checkout scm
     // Load the file 'pipelineTrace.groovy' from the current directory, into a variable called "externalMethod".
     def trace = load 'pipelineTrace.groovy'
-    def logs = load("logFile.groovy")
+    def logs = load 'logFile.groovy'
 
-//	def config = load("loadConfig.groovy")
+//	def config = load 'loadConfig.groovy'
 
     def WORKSPACE = "${env.WORKSPACE}"
 
@@ -133,7 +133,7 @@ node('master') {
 
         trace.endStage("${env.WORKSPACE}", "${env.BUILD_NUMBER}",  "${env.GIT_BRANCH}", 'Deployment to TEST')
     }
-}
+}()
 
 def clean() {
     bat '"%powershell%" -ExecutionPolicy ByPass -File %delete_folder% -DIRECTORY %ARTIFACT_PATH%'
